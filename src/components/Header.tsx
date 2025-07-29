@@ -60,11 +60,11 @@ const Header = () => {
               <Link
                 key={item.to}
                 to={item.to}
-                className={transition-colors text-sm xl:text-base ${
+                className={`transition-colors text-sm xl:text-base ${
                   isActive(item.to)
                     ? 'text-slate-900 font-semibold'
                     : 'text-slate-700 hover:text-slate-900'
-                }}
+                }`}
               >
                 {item.label}
               </Link>
