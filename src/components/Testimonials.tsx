@@ -8,28 +8,28 @@ const Testimonials = () => {
       location: "New York, USA",
       rating: 5,
       text: "Absolutely exceptional service and accommodations. The staff went above and beyond to make our anniversary celebration unforgettable. The attention to detail was remarkable.",
-      image: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop"
+      image: "/willis2.jpg"
     },
     {
       name: "David Chen",
       location: "Singapore",
       rating: 5,
       text: "The business facilities are world-class. Conducted a successful board meeting here and the technology, service, and ambiance were perfect. Highly recommend for corporate events.",
-      image: "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop"
+      image: "/willis3.jpg"
     },
     {
       name: "Emma Thompson",
       location: "London, UK",
       rating: 5,
       text: "Our wedding at The Luxury Hotel was a dream come true. The wedding coordinator was amazing, and every guest commented on the beautiful venue and exceptional food.",
-      image: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop"
+      image: "/willis4.jpg"
     },
     {
       name: "Michael Rodriguez",
       location: "Madrid, Spain",
       rating: 5,
       text: "The spa treatments were incredibly relaxing, and the dining experiences were outstanding. This hotel truly understands luxury hospitality. Will definitely return.",
-      image: "https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop"
+      image: "/willis5.jpg"
     }
   ];
 

@@ -369,7 +369,7 @@ const Events = () => {
               </div>
               <div className="relative">
                 <img 
-                  src="https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
+                  src="/willis6.jpg"
                   alt="Wedding setup"
                   className="rounded-2xl shadow-lg w-full h-96 object-cover"
                 />
