@@ -1,8 +1,5 @@
 import React from 'react';
-import { 
-  Waves, Dumbbell, Wifi, Car, Coffee, Utensils, Shield, Headphones,
-  Spa, Gamepad2, Baby, Briefcase, Plane, ShoppingBag, Music, Camera
-} from 'lucide-react';
+import { Waves, Dumbbell, Wifi, Car, Coffee, Utensils, Shield, Headphones, Space as Spa, Gamepad2, Baby, Briefcase, Plane, ShoppingBag, Music, Camera } from 'lucide-react';
 
 const Amenities = () => {
   const amenityCategories = [
