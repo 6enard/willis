@@ -9,10 +9,10 @@ const Header = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm w-full overflow-x-hidden">
       {/* Top bar */}
-      <div className="bg-slate-900 text-white py-1 sm:py-2">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center text-xs sm:text-sm">
+      <div className="bg-slate-900 text-white py-1 sm:py-2 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center text-xs sm:text-sm w-full">
           <div className="flex flex-col sm:flex-row items-center space-y-1 sm:space-y-0 sm:space-x-6">
             <div className="flex items-center space-x-2">
               <Phone className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -32,8 +32,8 @@ const Header = () => {
       </div>
 
       {/* Main nav */}
-      <nav className="max-w-7xl mx-auto px-4 py-2 sm:py-3 md:py-4">
-        <div className="flex justify-between items-center">
+      <nav className="max-w-7xl mx-auto px-4 py-2 sm:py-3 md:py-4 w-full">
+        <div className="flex justify-between items-center w-full">
           {/* Logo + Name linking to /home */}
           <Link to="/" className="flex items-center space-x-2 sm:space-x-3 hover:opacity-90 transition-opacity">
             <img
@@ -78,7 +78,7 @@ const Header = () => {
           <div className="lg:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="relative z-50 p-2 rounded-md text-slate-800 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-400 touch-manipulation"
+              className="relative z-50 p-2 rounded-md text-slate-800 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-400"
             >
               {isMenuOpen ? (
                 <X className="w-6 h-6" />
@@ -92,7 +92,7 @@ const Header = () => {
         {/* Mobile Nav Menu */}
         {isMenuOpen && (
           <div className="lg:hidden absolute top-full left-0 right-0 mt-0 py-4 px-4 border-t font-poppins bg-white shadow-lg rounded-b-md z-40 max-w-full overflow-hidden">
-            <div className="flex flex-col space-y-4">
+            <div className="flex flex-col space-y-4 w-full">
               {[
                 { to: '/', label: 'Home' },
                 { to: '/rooms', label: 'Rooms' },
@@ -115,7 +115,7 @@ const Header = () => {
                   {item.label}
                 </Link>
               ))}
-              <button className="bg-slate-900 text-white px-6 py-3 rounded-lg hover:bg-slate-800 transition-colors w-full touch-manipulation font-medium">
+              <button className="bg-slate-900 text-white px-6 py-3 rounded-lg hover:bg-slate-800 transition-colors w-full font-medium">
                 Book Now
               </button>
             </div>
