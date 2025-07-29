@@ -106,11 +106,11 @@ const Header = () => {
                   key={item.to}
                   to={item.to}
                   onClick={() => setIsMenuOpen(false)}
-                  className={transition-colors ${
+                  className={`transition-colors ${
                     isActive(item.to)
                       ? 'text-slate-900 font-semibold'
                       : 'text-slate-700 hover:text-slate-900'
-                  }}
+                  }`}
                 >
                   {item.label}
                 </Link>
