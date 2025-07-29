@@ -6,6 +6,10 @@ export default {
       screens: {
         'xs': '475px',
       },
+      fontFamily: {
+        'playfair': ['Playfair Display', 'serif'],
+        'poppins': ['Poppins', 'sans-serif'],
+      },
     },
   },
   plugins: [],

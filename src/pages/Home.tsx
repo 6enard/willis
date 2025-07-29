@@ -36,32 +36,32 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
+              <h2 className="font-playfair text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
                 Welcome to
                 <span className="block text-amber-500">The Willis Hotel</span>
               </h2>
-              <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-6 sm:mb-8 leading-relaxed">
+              <p className="font-poppins text-base sm:text-lg lg:text-xl text-gray-600 mb-6 sm:mb-8 leading-relaxed">
                 Built in 2013 in Bomet County, we're strategically located in the South Rift region 
                 with easy access to Maasai Mara Game Reserve and cultural communities. Our commitment 
                 to excellence ensures every guest enjoys comfort, exceptional service, and memorable experiences.
               </p>
               <div className="grid grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
                 <div className="text-center">
-                  <div className="text-2xl sm:text-3xl font-bold text-amber-500 mb-1 sm:mb-2">48</div>
-                  <div className="text-gray-600 text-sm sm:text-base">Bed Capacity</div>
+                  <div className="font-playfair text-2xl sm:text-3xl font-bold text-amber-500 mb-1 sm:mb-2">48</div>
+                  <div className="font-poppins text-gray-600 text-sm sm:text-base">Bed Capacity</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl sm:text-3xl font-bold text-amber-500 mb-1 sm:mb-2">24/7</div>
-                  <div className="text-gray-600 text-sm sm:text-base">Service</div>
+                  <div className="font-playfair text-2xl sm:text-3xl font-bold text-amber-500 mb-1 sm:mb-2">24/7</div>
+                  <div className="font-poppins text-gray-600 text-sm sm:text-base">Service</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl sm:text-3xl font-bold text-amber-500 mb-1 sm:mb-2">20%</div>
-                  <div className="text-gray-600 text-sm sm:text-base">First Stay Discount</div>
+                  <div className="font-playfair text-2xl sm:text-3xl font-bold text-amber-500 mb-1 sm:mb-2">20%</div>
+                  <div className="font-poppins text-gray-600 text-sm sm:text-base">First Stay Discount</div>
                 </div>
               </div>
               <Link 
                 to="/rooms" 
-                className="inline-flex items-center bg-amber-500 hover:bg-amber-600 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-lg transition-colors font-semibold text-sm sm:text-base"
+                className="font-poppins inline-flex items-center bg-amber-500 hover:bg-amber-600 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-lg transition-colors font-semibold text-sm sm:text-base"
               >
                 Explore Rooms
                 <ArrowRight className="w-5 h-5 ml-2" />
@@ -93,10 +93,10 @@ const Home = () => {
       <section className="py-12 sm:py-16 lg:py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="font-playfair text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Featured Accommodations
             </h2>
-            <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="font-poppins text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
               Discover our most popular rooms and suites, each designed to provide 
               the ultimate in comfort and luxury.
             </p>
@@ -112,11 +112,11 @@ const Home = () => {
                 />
                 <div className="p-4 sm:p-6">
                   <div className="flex justify-between items-start mb-3">
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-900">{room.name}</h3>
-                    <span className="text-amber-500 font-bold text-base sm:text-lg">{room.price}/night</span>
+                    <h3 className="font-playfair text-lg sm:text-xl font-bold text-gray-900">{room.name}</h3>
+                    <span className="font-poppins text-amber-500 font-bold text-base sm:text-lg">{room.price}/night</span>
                   </div>
-                  <p className="text-gray-600 mb-4 text-sm sm:text-base">{room.description}</p>
-                  <button className="w-full bg-gray-900 text-white py-2 sm:py-3 rounded-lg hover:bg-gray-800 transition-colors font-semibold text-sm sm:text-base">
+                  <p className="font-poppins text-gray-600 mb-4 text-sm sm:text-base">{room.description}</p>
+                  <button className="font-poppins w-full bg-gray-900 text-white py-2 sm:py-3 rounded-lg hover:bg-gray-800 transition-colors font-semibold text-sm sm:text-base">
                     View Details
                   </button>
                 </div>
@@ -127,7 +127,7 @@ const Home = () => {
           <div className="text-center">
             <Link 
               to="/rooms" 
-              className="inline-flex items-center bg-amber-500 hover:bg-amber-600 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-lg transition-colors font-semibold text-sm sm:text-base"
+              className="font-poppins inline-flex items-center bg-amber-500 hover:bg-amber-600 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-lg transition-colors font-semibold text-sm sm:text-base"
             >
               View All Rooms
               <ArrowRight className="w-5 h-5 ml-2" />

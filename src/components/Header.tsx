@@ -36,12 +36,19 @@ const Header = () => {
       {/* Main navigation */}
       <nav className="max-w-7xl mx-auto px-4 py-2 sm:py-3 md:py-4">
         <div className="flex justify-between items-center">
-          <Link to="/" className="text-xl sm:text-2xl font-bold text-slate-900 hover:text-slate-700 transition-colors">
-            The Willis Hotel
+          <Link to="/" className="flex items-center space-x-2 sm:space-x-3 hover:opacity-90 transition-opacity">
+            <img 
+              src="/logo.png" 
+              alt="The Willis Hotel" 
+              className="h-8 sm:h-10 md:h-12 w-auto"
+            />
+            <span className="text-lg sm:text-xl md:text-2xl font-playfair font-bold text-slate-900">
+              The Willis Hotel
+            </span>
           </Link>
 
           {/* Desktop menu */}
-          <div className="hidden lg:flex items-center space-x-4 xl:space-x-6 2xl:space-x-8">
+          <div className="hidden lg:flex items-center space-x-4 xl:space-x-6 2xl:space-x-8 font-poppins">
             <Link 
               to="/" 
               className={`transition-colors text-sm xl:text-base ${isActive('/') ? 'text-slate-900 font-semibold' : 'text-slate-700 hover:text-slate-900'}`}
@@ -78,7 +85,7 @@ const Header = () => {
             >
               Contact
             </Link>
-            <button className="bg-slate-900 text-white px-3 xl:px-4 2xl:px-6 py-2 rounded-lg hover:bg-slate-800 transition-colors text-sm xl:text-base">
+            <button className="bg-slate-900 text-white px-3 xl:px-4 2xl:px-6 py-2 rounded-lg hover:bg-slate-800 transition-colors text-sm xl:text-base font-medium">
               Book Now
             </button>
           </div>
@@ -94,7 +101,7 @@ const Header = () => {
 
         {/* Mobile menu */}
         {isMenuOpen && (
-          <div className="lg:hidden mt-3 py-3 border-t">
+          <div className="lg:hidden mt-3 py-3 border-t font-poppins">
             <div className="flex flex-col space-y-4">
               <Link 
                 to="/" 
