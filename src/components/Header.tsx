@@ -35,7 +35,7 @@ const Header = () => {
       <nav className="max-w-7xl mx-auto px-4 py-2 sm:py-3 md:py-4">
         <div className="flex justify-between items-center">
           {/* Logo + Name linking to /home */}
-          <Link to="/home" className="flex items-center space-x-2 sm:space-x-3 hover:opacity-90 transition-opacity">
+          <Link to="/" className="flex items-center space-x-2 sm:space-x-3 hover:opacity-90 transition-opacity">
             <img
               src="/logo.png"
               alt="The Willis Hotel"
@@ -49,7 +49,7 @@ const Header = () => {
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center space-x-4 xl:space-x-6 2xl:space-x-8 font-poppins">
             {[
-              { to: '/home', label: 'Home' },
+              { to: '/', label: 'Home' },
               { to: '/rooms', label: 'Rooms' },
               { to: '/amenities', label: 'Amenities' },
               { to: '/dining', label: 'Dining' },
@@ -94,7 +94,7 @@ const Header = () => {
           <div className="lg:hidden mt-3 py-4 px-2 border-t font-poppins bg-white shadow-md rounded-md">
             <div className="flex flex-col space-y-4">
               {[
-                { to: '/home', label: 'Home' },
+                { to: '/', label: 'Home' },
                 { to: '/rooms', label: 'Rooms' },
                 { to: '/amenities', label: 'Amenities' },
                 { to: '/dining', label: 'Dining' },
