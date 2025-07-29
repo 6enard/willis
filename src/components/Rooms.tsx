@@ -6,7 +6,7 @@ const Rooms = () => {
     {
       id: 1,
       name: "Single Room",
-      price: "KES 3,500",
+      price: "KSh 3,500",
       image: "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
       size: "32 sqm",
       guests: "2 Guests",
@@ -16,7 +16,7 @@ const Rooms = () => {
     {
       id: 2,
       name: "Deluxe Room",
-      price: "KES 4,500",
+      price: "KSh 4,500",
       image: "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
       size: "45 sqm",
       guests: "2 Guests",
@@ -26,7 +26,7 @@ const Rooms = () => {
     {
       id: 3,
       name: "Superior Room",
-      price: "KES 5,500",
+      price: "KSh 5,500",
       image: "https://images.pexels.com/photos/1743229/pexels-photo-1743229.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
       size: "65 sqm",
       guests: "2 Guests",

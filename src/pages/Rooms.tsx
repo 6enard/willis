@@ -8,8 +8,8 @@ const Rooms = () => {
     {
       id: 1,
       name: "Single Room",
-      price: "KES 3,500",
-      originalPrice: "KES 4,000",
+      price: "KSh 3,500",
+      originalPrice: "KSh 4,000",
       image: "/willis2.jpg",
       gallery: [
         "/willis2.jpg",
@@ -27,8 +27,8 @@ const Rooms = () => {
     {
       id: 2,
       name: "Deluxe Room",
-      price: "KES 4,500",
-      originalPrice: "KES 5,000",
+      price: "KSh 4,500",
+      originalPrice: "KSh 5,000",
       image: "/willis3.jpg",
       gallery: [
         "/willis3.jpg",
@@ -46,8 +46,8 @@ const Rooms = () => {
     {
       id: 3,
       name: "Superior Room",
-      price: "KES 5,500",
-      originalPrice: "KES 6,000",
+      price: "KSh 5,500",
+      originalPrice: "KSh 6,000",
       image: "/willis4.jpg",
       gallery: [
         "/willis4.jpg",
