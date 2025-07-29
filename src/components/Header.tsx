@@ -6,7 +6,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string) => location.pathname === path; 
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
@@ -16,11 +16,12 @@ const Header = () => {
           <div className="flex flex-col sm:flex-row items-center space-y-1 sm:space-y-0 sm:space-x-6">
             <div className="flex items-center space-x-2">
               <Phone className="w-3 h-3 sm:w-4 sm:h-4" />
+
               <span>0758 000 010</span>
             </div>
             <div className="flex items-center space-x-2">
               <Mail className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span>hotelthewillis@gmail.com</span>
+              <span>hotelthewillis@gmail.com .</span>
             </div>
           </div>
           <div className="flex items-center space-x-2 mt-1 sm:mt-0">
