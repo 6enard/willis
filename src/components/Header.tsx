@@ -39,9 +39,9 @@ const Header = () => {
             <img
               src="/logo.png"
               alt="The Willis Hotel"
-              className="h-8 sm:h-10 md:h-12 w-auto flex-shrink-0"
+              className="h-8 sm:h-10 md:h-12 w-auto flex-shrink-0 max-w-[60px] sm:max-w-none"
             />
-            <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-playfair font-bold text-slate-900 truncate">
+            <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-playfair font-bold text-slate-900 truncate min-w-0">
               The Willis Hotel
             </span>
           </Link>
@@ -63,7 +63,7 @@ const Header = () => {
                 className={`transition-colors text-sm xl:text-base whitespace-nowrap ${
                   isActive(item.to)
                     ? 'text-slate-900 font-semibold'
-                    : 'text-slate-700 hover:text-slate-900'
+               className="bg-slate-900 text-white px-6 py-3 rounded-lg hover:bg-slate-800 transition-colors w-full touch-manipulation font-medium mt-2 min-w-0"
                 }`}
               >
                 {item.label}
@@ -101,7 +101,7 @@ const Header = () => {
             
             {/* Menu */}
             <div className="lg:hidden fixed top-full left-0 right-0 py-4 px-4 font-poppins bg-white shadow-lg z-40 max-h-[calc(100vh-120px)] overflow-y-auto">
-              <div className="flex flex-col space-y-3 max-w-7xl mx-auto">
+              <div className="flex flex-col space-y-3 max-w-7xl mx-auto w-full">
                 {[
                   { to: '/', label: 'Home' },
                   { to: '/rooms', label: 'Rooms' },
@@ -115,7 +115,7 @@ const Header = () => {
                     key={item.to}
                     to={item.to}
                     onClick={() => setIsMenuOpen(false)}
-                    className={`block py-3 px-4 rounded-md transition-colors touch-manipulation text-center ${
+                   className={`block py-3 px-4 rounded-md transition-colors touch-manipulation text-center w-full min-w-0 ${
                       isActive(item.to)
                         ? 'text-slate-900 font-semibold bg-slate-100'
                         : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
