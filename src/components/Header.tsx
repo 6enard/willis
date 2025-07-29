@@ -92,16 +92,8 @@ const Header = () => {
 
         {/* Mobile Nav Menu - Full width overlay */}
         {isMenuOpen && (
-          <>
-            {/* Backdrop */}
-            <div 
-              className="lg:hidden fixed inset-0 bg-black/20 z-30"
-              onClick={() => setIsMenuOpen(false)}
-            />
-            
-            {/* Menu */}
-            <div className="lg:hidden fixed top-full left-0 right-0 py-4 px-4 font-poppins bg-white shadow-lg z-40 max-h-[calc(100vh-120px)] overflow-y-auto">
-              <div className="flex flex-col space-y-3 max-w-7xl mx-auto w-full">
+          <div className="lg:hidden absolute top-full left-0 right-0 py-4 px-4 font-poppins bg-white shadow-lg z-40 border-t border-gray-100">
+            <div className="flex flex-col space-y-2 max-w-7xl mx-auto w-full">
                 {[
                   { to: '/', label: 'Home' },
                   { to: '/rooms', label: 'Rooms' },
@@ -130,9 +122,8 @@ const Header = () => {
                 >
                   Book Now
                 </button>
-              </div>
             </div>
-          </>
+          </div>
         )}
       </nav>
     </header>
