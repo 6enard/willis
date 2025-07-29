@@ -75,10 +75,10 @@ const Header = () => {
           </div>
 
           {/* Mobile menu toggle */}
-          <div className="lg:hidden z-50">
+          <div className="lg:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 rounded-md text-slate-800 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-400"
+              className="relative z-50 p-2 rounded-md text-slate-800 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-400 touch-manipulation"
             >
               {isMenuOpen ? (
                 <X className="w-6 h-6" />
@@ -91,7 +91,7 @@ const Header = () => {
 
         {/* Mobile Nav Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden mt-3 py-4 px-2 border-t font-poppins bg-white shadow-md rounded-md">
+          <div className="lg:hidden absolute top-full left-0 right-0 mt-0 py-4 px-4 border-t font-poppins bg-white shadow-lg rounded-b-md z-40 max-w-full overflow-hidden">
             <div className="flex flex-col space-y-4">
               {[
                 { to: '/', label: 'Home' },
@@ -106,7 +106,7 @@ const Header = () => {
                   key={item.to}
                   to={item.to}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`transition-colors ${
+                  className={`block py-2 px-2 rounded-md transition-colors touch-manipulation ${
                     isActive(item.to)
                       ? 'text-slate-900 font-semibold'
                       : 'text-slate-700 hover:text-slate-900'
@@ -115,7 +115,7 @@ const Header = () => {
                   {item.label}
                 </Link>
               ))}
-              <button className="bg-slate-900 text-white px-6 py-2 rounded-lg hover:bg-slate-800 transition-colors w-full">
+              <button className="bg-slate-900 text-white px-6 py-3 rounded-lg hover:bg-slate-800 transition-colors w-full touch-manipulation font-medium">
                 Book Now
               </button>
             </div>
