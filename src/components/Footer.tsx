@@ -9,10 +9,10 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Hotel Info */}
           <div>
-            <h3 className="text-2xl font-bold mb-4">The Luxury Hotel</h3>
+            <h3 className="text-2xl font-bold mb-4">The Willis Hotel</h3>
             <p className="text-gray-300 mb-6 leading-relaxed">
-              Experience unparalleled luxury and comfort in the heart of Nairobi. 
-              Where every moment becomes a cherished memory.
+              Built in 2013 in Bomet County, located in the South Rift region of Kenya, 
+              with easy access to tourist attractions and tastefully decorated rooms.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-amber-500 transition-colors">
@@ -63,18 +63,18 @@ const Footer = () => {
               <div className="flex items-start">
                 <MapPin className="w-5 h-5 text-amber-400 mr-3 mt-1 flex-shrink-0" />
                 <div>
-                  <p className="text-gray-300">123 Luxury Avenue</p>
-                  <p className="text-gray-300">Westlands, Nairobi</p>
-                  <p className="text-gray-300">Kenya, 00100</p>
+                  <p className="text-gray-300">P.O Box 669-20400</p>
+                  <p className="text-gray-300">Bomet, Kenya</p>
+                  <p className="text-gray-300">Sotik - Narok Highway</p>
                 </div>
               </div>
               <div className="flex items-center">
                 <Phone className="w-5 h-5 text-amber-400 mr-3" />
-                <p className="text-gray-300">+254 700 123 456</p>
+                <p className="text-gray-300">0758 000 010</p>
               </div>
               <div className="flex items-center">
                 <Mail className="w-5 h-5 text-amber-400 mr-3" />
-                <p className="text-gray-300">info@luxuryhotel.com</p>
+                <p className="text-gray-300">hotelthewillis@gmail.com</p>
               </div>
             </div>
           </div>
@@ -103,7 +103,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">
-            © 2024 The Luxury Hotel. All rights reserved.
+            © 2024 The Willis Hotel. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#" className="text-gray-400 hover:text-amber-400 text-sm transition-colors">Privacy Policy</a>

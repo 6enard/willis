@@ -36,7 +36,7 @@ const Header = () => {
       <nav className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <Link to="/" className="text-2xl font-bold text-slate-900 hover:text-slate-700 transition-colors">
-            The Luxury Hotel
+            The Willis Hotel
           </Link>
 
           {/* Desktop menu */}

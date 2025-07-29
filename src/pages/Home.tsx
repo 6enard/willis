@@ -8,22 +8,22 @@ import { ArrowRight, Star, Users, Calendar } from 'lucide-react';
 const Home = () => {
   const featuredRooms = [
     {
-      name: "Deluxe Suite",
-      price: "$299",
+      name: "Single Room",
+      price: "KES 3,500",
       image: "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-      description: "Elegant suite with city views and premium amenities"
+      description: "Comfortable single room with modern amenities"
     },
     {
-      name: "Executive Suite",
-      price: "$459",
+      name: "Deluxe Room",
+      price: "KES 4,500",
       image: "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-      description: "Spacious suite with living area and ocean views"
+      description: "Spacious room with double bed and premium amenities"
     },
     {
-      name: "Presidential Suite",
-      price: "$799",
+      name: "Superior Room",
+      price: "KES 5,500",
       image: "https://images.pexels.com/photos/1743229/pexels-photo-1743229.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-      description: "Ultimate luxury with private terrace and butler service"
+      description: "Our finest room with superior amenities and garden views"
     }
   ];
 
@@ -38,25 +38,25 @@ const Home = () => {
             <div>
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
                 Welcome to
-                <span className="block text-amber-500">The Luxury Hotel</span>
+                <span className="block text-amber-500">The Willis Hotel</span>
               </h2>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Experience the pinnacle of hospitality in the heart of Nairobi. Our commitment 
-                to excellence ensures every guest enjoys unparalleled comfort, exceptional service, 
-                and unforgettable memories.
+                Built in 2013 in Bomet County, we're strategically located in the South Rift region 
+                with easy access to Maasai Mara Game Reserve and cultural communities. Our commitment 
+                to excellence ensures every guest enjoys comfort, exceptional service, and memorable experiences.
               </p>
               <div className="grid grid-cols-3 gap-6 mb-8">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-amber-500 mb-2">150+</div>
-                  <div className="text-gray-600">Luxury Rooms</div>
+                  <div className="text-3xl font-bold text-amber-500 mb-2">48</div>
+                  <div className="text-gray-600">Bed Capacity</div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-amber-500 mb-2">24/7</div>
-                  <div className="text-gray-600">Concierge</div>
+                  <div className="text-gray-600">Service</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-amber-500 mb-2">5★</div>
-                  <div className="text-gray-600">Rating</div>
+                  <div className="text-3xl font-bold text-amber-500 mb-2">20%</div>
+                  <div className="text-gray-600">First Stay Discount</div>
                 </div>
               </div>
               <Link 

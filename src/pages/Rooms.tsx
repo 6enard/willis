@@ -7,9 +7,9 @@ const Rooms = () => {
   const rooms = [
     {
       id: 1,
-      name: "Standard Room",
-      price: "$199",
-      originalPrice: "$249",
+      name: "Single Room",
+      price: "KES 3,500",
+      originalPrice: "KES 4,000",
       image: "https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
       gallery: [
         "https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
@@ -18,17 +18,17 @@ const Rooms = () => {
       ],
       size: "32 sqm",
       guests: "2 Guests",
-      bed: "Queen Bed",
+      bed: "Single Bed",
       view: "City View",
-      amenities: ["Free WiFi", "Air Conditioning", "Mini Bar", "Work Desk", "Room Service", "Safe"],
+      amenities: ["Free WiFi", "Television", "Bathroom", "Air Conditioning", "Work Desk", "Daily Housekeeping"],
       features: [Wifi, Car, Coffee, Tv],
-      description: "Comfortable and elegantly appointed room perfect for business or leisure travelers. Features modern amenities and city views."
+      description: "Comfortable single room perfect for solo travelers. Features modern amenities with easy access to Maasai Mara and local attractions."
     },
     {
       id: 2,
-      name: "Deluxe Suite",
-      price: "$299",
-      originalPrice: "$349",
+      name: "Deluxe Room",
+      price: "KES 4,500",
+      originalPrice: "KES 5,000",
       image: "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
       gallery: [
         "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
@@ -37,17 +37,17 @@ const Rooms = () => {
       ],
       size: "45 sqm",
       guests: "2 Guests",
-      bed: "King Bed",
+      bed: "Double Bed",
       view: "City View",
-      amenities: ["King Bed", "City View", "Mini Bar", "Work Desk", "Marble Bathroom", "Premium Toiletries"],
+      amenities: ["Double Bed", "Free WiFi", "Television", "Bathroom", "Work Desk", "Premium Toiletries"],
       features: [Wifi, Car, Coffee, Tv],
-      description: "Spacious suite with separate living area, premium amenities, and stunning city views. Perfect for extended stays."
+      description: "Spacious deluxe room with double bed, premium amenities, and comfortable furnishings. Perfect for couples or business travelers."
     },
     {
       id: 3,
-      name: "Executive Suite",
-      price: "$459",
-      originalPrice: "$529",
+      name: "Superior Room",
+      price: "KES 5,500",
+      originalPrice: "KES 6,000",
       image: "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
       gallery: [
         "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
@@ -55,69 +55,12 @@ const Rooms = () => {
         "https://images.pexels.com/photos/1743229/pexels-photo-1743229.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
       ],
       size: "65 sqm",
-      guests: "3 Guests",
-      bed: "King Bed + Sofa Bed",
-      view: "Ocean View",
-      amenities: ["King Bed", "Ocean View", "Living Area", "Kitchenette", "Executive Lounge Access", "Butler Service"],
-      features: [Wifi, Car, Coffee, Tv, Bath],
-      description: "Luxurious suite with panoramic ocean views, separate living area, and exclusive access to executive lounge."
-    },
-    {
-      id: 4,
-      name: "Presidential Suite",
-      price: "$799",
-      originalPrice: "$899",
-      image: "https://images.pexels.com/photos/1743229/pexels-photo-1743229.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-      gallery: [
-        "https://images.pexels.com/photos/1743229/pexels-photo-1743229.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-        "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-        "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
-      ],
-      size: "120 sqm",
-      guests: "4 Guests",
-      bed: "Master Bedroom + Guest Room",
-      view: "Panoramic View",
-      amenities: ["Master Bedroom", "Panoramic View", "Private Terrace", "Butler Service", "Jacuzzi", "Dining Room"],
-      features: [Wifi, Car, Coffee, Tv, Bath, Users],
-      description: "The ultimate luxury experience with private terrace, dedicated butler service, and breathtaking panoramic views."
-    },
-    {
-      id: 5,
-      name: "Family Suite",
-      price: "$399",
-      originalPrice: "$459",
-      image: "https://images.pexels.com/photos/1134176/pexels-photo-1134176.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-      gallery: [
-        "https://images.pexels.com/photos/1134176/pexels-photo-1134176.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-        "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-        "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
-      ],
-      size: "80 sqm",
-      guests: "6 Guests",
-      bed: "2 Bedrooms",
+      guests: "2 Guests",
+      bed: "Double Bed",
       view: "Garden View",
-      amenities: ["Two Bedrooms", "Garden View", "Kitchenette", "Living Area", "Kids Amenities", "Connecting Rooms"],
-      features: [Wifi, Car, Coffee, Tv, Bath, Users],
-      description: "Perfect for families with two separate bedrooms, living area, and special amenities for children."
-    },
-    {
-      id: 6,
-      name: "Penthouse Suite",
-      price: "$1299",
-      originalPrice: "$1499",
-      image: "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-      gallery: [
-        "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-        "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-        "https://images.pexels.com/photos/1743229/pexels-photo-1743229.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
-      ],
-      size: "200 sqm",
-      guests: "8 Guests",
-      bed: "3 Bedrooms",
-      view: "360° City View",
-      amenities: ["Three Bedrooms", "360° Views", "Private Elevator", "Rooftop Terrace", "Personal Chef", "Spa Room"],
-      features: [Wifi, Car, Coffee, Tv, Bath, Users],
-      description: "The pinnacle of luxury living with three bedrooms, private elevator, rooftop terrace, and personal chef service."
+      amenities: ["Double Bed", "Free WiFi", "Television", "Bathroom", "Living Area", "Premium Amenities"],
+      features: [Wifi, Car, Coffee, Tv, Bath],
+      description: "Our finest room with superior amenities, spacious layout, and garden views. Perfect for guests seeking extra comfort and luxury."
     }
   ];
 

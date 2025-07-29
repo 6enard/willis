@@ -28,9 +28,9 @@ const Contact = () => {
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-1">Address</h4>
                   <p className="text-gray-600">
-                    123 Luxury Avenue<br />
-                    Westlands, Nairobi<br />
-                    Kenya, 00100
+                    P.O Box 669-20400<br />
+                    Bomet, Kenya<br />
+                    Sotik - Narok Highway
                   </p>
                 </div>
               </div>
@@ -42,9 +42,9 @@ const Contact = () => {
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-1">Phone</h4>
                   <p className="text-gray-600">
-                    Reservations: +254 700 123 456<br />
-                    Concierge: +254 700 123 457<br />
-                    Events: +254 700 123 458
+                    Main Line: 0758 000 010<br />
+                    Reservations: 0758 000 010<br />
+                    Events: 0758 000 010
                   </p>
                 </div>
               </div>
@@ -56,9 +56,9 @@ const Contact = () => {
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-1">Email</h4>
                   <p className="text-gray-600">
-                    info@luxuryhotel.com<br />
-                    reservations@luxuryhotel.com<br />
-                    events@luxuryhotel.com
+                    hotelthewillis@gmail.com<br />
+                    reservations@hotelthewillis.com<br />
+                    events@hotelthewillis.com
                   </p>
                 </div>
               </div>
@@ -80,12 +80,17 @@ const Contact = () => {
 
             {/* Map placeholder */}
             <div className="mt-8">
-              <div className="bg-gray-200 rounded-2xl h-64 flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-2" />
-                  <p className="text-gray-500">Interactive Map</p>
-                  <p className="text-gray-400 text-sm">Location: Westlands, Nairobi</p>
-                </div>
+              <div className="bg-gray-200 rounded-2xl h-64 overflow-hidden">
+                <iframe 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.4549668653153!2d35.33913537496504!3d-0.7732661992192145!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182b9935a17a26c5%3A0xaca4731f68690f98!2sThe%20Willis%20Hotel%2C%20Bomet!5e0!3m2!1sen!2ske!4v1753786363240!5m2!1sen!2ske" 
+                  width="100%" 
+                  height="100%" 
+                  style={{border:0}} 
+                  allowFullScreen 
+                  loading="lazy" 
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="rounded-2xl"
+                ></iframe>
               </div>
             </div>
           </div>

@@ -3,12 +3,12 @@ import { Calendar, Users, MapPin } from 'lucide-react';
 
 const Hero = () => {
   return (
-    <section id="home" className="relative h-screen flex items-center justify-center">
+    <section id="home" className="relative h-screen flex items-center justify-center pt-32">
       {/* Background image */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: 'url("https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop")'
+          backgroundImage: 'url("https://images.pexels.com/photos/1134176/pexels-photo-1134176.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop")'
         }}
       >
         <div className="absolute inset-0 bg-black/40"></div>
@@ -16,14 +16,14 @@ const Hero = () => {
 
       {/* Content */}
       <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-          Experience
-          <span className="block text-amber-400">Luxury</span>
-          Redefined
+        <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+          Welcome to
+          <span className="block text-amber-400">The Willis Hotel</span>
+          <span className="block text-2xl md:text-3xl font-normal mt-2">South Rift's Finest</span>
         </h1>
-        <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-2xl mx-auto">
-          Discover unparalleled comfort and elegance in the heart of Nairobi. 
-          Where every moment becomes a cherished memory.
+        <p className="text-lg md:text-xl mb-8 text-gray-200 max-w-3xl mx-auto">
+          Conveniently located along Sotik - Narok Highway with easy access to Maasai Mara Game Reserve 
+          and the culture-filled Kalenjin and Maasai communities. Perfect for both business and leisure travelers.
         </p>
         
         {/* Booking form */}
