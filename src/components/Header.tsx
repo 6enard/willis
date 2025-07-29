@@ -1,30 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, Mail, MapPin } from 'lucide-react';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header
-      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-        isScrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-md border-b border-white/20'
-          : 'bg-white/90 backdrop-blur-sm'
-      }`}
-    >
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
       {/* Top bar */}
       <div className="bg-slate-900 text-white py-1 sm:py-2">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center text-xs sm:text-sm">
@@ -47,13 +32,10 @@ const Header = () => {
       </div>
 
       {/* Main nav */}
-      <nav className="max-w-7xl mx-auto px-4 py-4 sm:py-5 md:py-6">
+      <nav className="max-w-7xl mx-auto px-4 py-2 sm:py-3 md:py-4">
         <div className="flex justify-between items-center">
           {/* Logo + Name linking to /home */}
-          <Link
-            to="/home"
-            className="flex items-center space-x-2 sm:space-x-3 hover:scale-105 transition-transform duration-300"
-          >
+          <Link to="/home" className="flex items-center space-x-2 sm:space-x-3 hover:opacity-90 transition-opacity">
             <img
               src="/logo.png"
               alt="The Willis Hotel"
@@ -78,11 +60,11 @@ const Header = () => {
               <Link
                 key={item.to}
                 to={item.to}
-                className={`transition-colors text-sm xl:text-base ${
+                className={transition-colors text-sm xl:text-base ${
                   isActive(item.to)
                     ? 'text-slate-900 font-semibold'
                     : 'text-slate-700 hover:text-slate-900'
-                }`}
+                }}
               >
                 {item.label}
               </Link>
@@ -93,14 +75,18 @@ const Header = () => {
           </div>
 
           {/* Mobile menu toggle */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className={`lg:hidden p-2 rounded-lg transition-all duration-300 ${
-              isScrolled ? 'text-gray-800 hover:bg-gray-100' : 'text-slate-800 hover:bg-slate-200'
-            }`}
-          >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          <div className="lg:hidden z-50">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="p-2 rounded-md text-slate-800 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-400"
+            >
+              {isMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Nav Menu */}
@@ -120,11 +106,11 @@ const Header = () => {
                   key={item.to}
                   to={item.to}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`transition-colors ${
+                  className={transition-colors ${
                     isActive(item.to)
                       ? 'text-slate-900 font-semibold'
                       : 'text-slate-700 hover:text-slate-900'
-                  }`}
+                  }}
                 >
                   {item.label}
                 </Link>
