@@ -40,9 +40,9 @@ const Header = () => {
             <img 
               src="/logo.png" 
               alt="The Willis Hotel" 
-              className="h-8 sm:h-10 md:h-12 w-auto"
+              className="h-10 sm:h-12 md:h-14 w-auto"
             />
-            <span className="text-lg sm:text-xl md:text-2xl font-playfair font-bold text-slate-900">
+            <span className="text-xl sm:text-2xl md:text-3xl font-playfair font-bold text-slate-900">
               The Willis Hotel
             </span>
           </Link>
@@ -78,6 +78,12 @@ const Header = () => {
               className={`transition-colors text-sm xl:text-base ${isActive('/events') ? 'text-slate-900 font-semibold' : 'text-slate-700 hover:text-slate-900'}`}
             >
               Events
+            </Link>
+            <Link 
+              to="/gallery" 
+              className={`transition-colors text-sm xl:text-base ${isActive('/gallery') ? 'text-slate-900 font-semibold' : 'text-slate-700 hover:text-slate-900'}`}
+            >
+              Gallery
             </Link>
             <Link 
               to="/contact" 
@@ -137,6 +143,13 @@ const Header = () => {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Events
+              </Link>
+              <Link 
+                to="/gallery" 
+                className={`transition-colors ${isActive('/gallery') ? 'text-slate-900 font-semibold' : 'text-slate-700 hover:text-slate-900'}`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Gallery
               </Link>
               <Link 
                 to="/contact" 

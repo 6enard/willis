@@ -13,10 +13,30 @@
 }
 
 /* Ensure hero background covers properly on mobile */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   #home {
     background-attachment: scroll !important;
     min-height: 100vh;
     min-height: 100dvh; /* Dynamic viewport height for mobile */
   }
+}
+
+/* Improved mobile responsiveness for larger phones */
+@media (min-width: 375px) and (max-width: 768px) {
+  .hero-text {
+    font-size: clamp(2rem, 8vw, 4rem);
+  }
+  
+  .hero-subtitle {
+    font-size: clamp(1rem, 4vw, 1.5rem);
+  }
+  
+  .hero-description {
+    font-size: clamp(0.875rem, 3vw, 1.125rem);
+  }
+}
+
+/* Smooth scrolling for better UX */
+html {
+  scroll-behavior: smooth;
 }
