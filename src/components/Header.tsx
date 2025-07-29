@@ -63,7 +63,7 @@ const Header = () => {
                 className={`transition-colors text-sm xl:text-base whitespace-nowrap ${
                   isActive(item.to)
                     ? 'text-slate-900 font-semibold'
-               className="bg-slate-900 text-white px-6 py-3 rounded-lg hover:bg-slate-800 transition-colors w-full touch-manipulation font-medium mt-2 min-w-0"
+                    : 'text-slate-700 hover:text-slate-900'
                 }`}
               >
                 {item.label}
