@@ -1,27 +1,30 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
-import Hero from './components/Hero';
-import Rooms from './components/Rooms';
-import Amenities from './components/Amenities';
-import Dining from './components/Dining';
-import Events from './components/Events';
-import Testimonials from './components/Testimonials';
-import Contact from './components/Contact';
 import Footer from './components/Footer';
+import Home from './pages/Home';
+import Rooms from './pages/Rooms';
+import Amenities from './pages/Amenities';
+import Dining from './pages/Dining';
+import Events from './pages/Events';
+import Contact from './pages/Contact';
 
 function App() {
   return (
-    <div className="min-h-screen">
-      <Header />
-      <Hero />
-      <Rooms />
-      <Amenities />
-      <Dining />
-      <Events />
-      <Testimonials />
-      <Contact />
-      <Footer />
-    </div>
+    <Router>
+      <div className="min-h-screen">
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/rooms" element={<Rooms />} />
+          <Route path="/amenities" element={<Amenities />} />
+          <Route path="/dining" element={<Dining />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
