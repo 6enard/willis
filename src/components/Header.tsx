@@ -115,7 +115,7 @@ const Header = () => {
                     key={item.to}
                     to={item.to}
                     onClick={() => setIsMenuOpen(false)}
-                   className={`block py-3 px-4 rounded-md transition-colors touch-manipulation text-center w-full min-w-0 ${
+                    className={`block py-3 px-4 rounded-md transition-colors touch-manipulation text-center w-full min-w-0 ${
                       isActive(item.to)
                         ? 'text-slate-900 font-semibold bg-slate-100'
                         : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
