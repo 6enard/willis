@@ -5,32 +5,32 @@ const Rooms = () => {
   const rooms = [
     {
       id: 1,
-      name: "Deluxe Suite",
-      price: "$299",
+      name: "Single Room",
+      price: "KES 3,500",
       image: "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-      size: "45 sqm",
+      size: "32 sqm",
       guests: "2 Guests",
-      amenities: ["King Bed", "City View", "Mini Bar", "Work Desk"],
+      amenities: ["Single Bed", "City View", "Free WiFi", "Work Desk"],
       features: [Wifi, Car, Coffee, Tv]
     },
     {
       id: 2,
-      name: "Executive Suite",
-      price: "$459",
+      name: "Deluxe Room",
+      price: "KES 4,500",
       image: "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-      size: "65 sqm",
-      guests: "3 Guests",
-      amenities: ["King Bed", "Ocean View", "Living Area", "Kitchenette"],
+      size: "45 sqm",
+      guests: "2 Guests",
+      amenities: ["Double Bed", "City View", "Premium Amenities", "Work Desk"],
       features: [Wifi, Car, Coffee, Tv, Bath]
     },
     {
       id: 3,
-      name: "Presidential Suite",
-      price: "$799",
+      name: "Superior Room",
+      price: "KES 5,500",
       image: "https://images.pexels.com/photos/1743229/pexels-photo-1743229.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-      size: "120 sqm",
-      guests: "4 Guests",
-      amenities: ["Master Bedroom", "Panoramic View", "Private Terrace", "Butler Service"],
+      size: "65 sqm",
+      guests: "2 Guests",
+      amenities: ["Double Bed", "Garden View", "Living Area", "Premium Service"],
       features: [Wifi, Car, Coffee, Tv, Bath, Users]
     }
   ];
