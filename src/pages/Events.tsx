@@ -10,11 +10,11 @@ const Events = () => {
       name: "Grand Ballroom",
       capacity: "500 guests",
       size: "800 sqm",
-      image: "https://images.pexels.com/photos/1395967/pexels-photo-1395967.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: "/willis6.jpg",
       gallery: [
-        "https://images.pexels.com/photos/1395967/pexels-photo-1395967.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-        "https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-        "https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
+        "/willis6.jpg",
+        "/willis7.jpg",
+        "/willis8.jpg"
       ],
       features: ["Crystal Chandeliers", "Dance Floor", "Stage", "Audio/Visual Equipment", "Climate Control", "Valet Parking"],
       ideal: "Weddings, Galas, Large Conferences",
@@ -27,11 +27,11 @@ const Events = () => {
       name: "Executive Boardroom",
       capacity: "20 guests",
       size: "60 sqm",
-      image: "https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: "/willis9.jpg",
       gallery: [
-        "https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-        "https://images.pexels.com/photos/1395967/pexels-photo-1395967.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-        "https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
+        "/willis9.jpg",
+        "/willis10.jpg",
+        "/willis5.jpg"
       ],
       features: ["Video Conferencing", "Presentation Screen", "High-Speed WiFi", "Catering Service", "Natural Light", "Executive Seating"],
       ideal: "Board Meetings, Executive Sessions",
@@ -44,11 +44,11 @@ const Events = () => {
       name: "Garden Pavilion",
       capacity: "150 guests",
       size: "200 sqm",
-      image: "https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: "/willis2.jpg",
       gallery: [
-        "https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-        "https://images.pexels.com/photos/1395967/pexels-photo-1395967.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-        "https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
+        "/willis2.jpg",
+        "/willis3.jpg",
+        "/willis4.jpg"
       ],
       features: ["Outdoor Setting", "Garden Views", "Weather Protection", "Natural Lighting", "Sound System", "Bar Setup"],
       ideal: "Garden Parties, Cocktail Receptions",
@@ -61,11 +61,11 @@ const Events = () => {
       name: "Skyline Conference Room",
       capacity: "80 guests",
       size: "120 sqm",
-      image: "https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: "/willis7.jpg",
       gallery: [
-        "https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-        "https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-        "https://images.pexels.com/photos/1395967/pexels-photo-1395967.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
+        "/willis7.jpg",
+        "/willis8.jpg",
+        "/willis9.jpg"
       ],
       features: ["City Views", "Modern AV Equipment", "Flexible Layout", "Break-out Areas", "Coffee Station", "Natural Light"],
       ideal: "Corporate Training, Seminars, Workshops",
@@ -82,7 +82,7 @@ const Events = () => {
       time: "7:00 PM",
       price: "$85 per person",
       description: "Join our sommelier for an exclusive wine tasting featuring premium selections from around the world.",
-      image: "https://images.pexels.com/photos/1407846/pexels-photo-1407846.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+      image: "/willis8.jpg",
       category: "Wine & Dine"
     },
     {
@@ -91,7 +91,7 @@ const Events = () => {
       time: "8:30 PM",
       price: "Free for guests",
       description: "Live jazz performance in our Azure Lounge with complimentary appetizers and signature cocktails.",
-      image: "https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+      image: "/willis9.jpg",
       category: "Entertainment"
     },
     {
@@ -100,7 +100,7 @@ const Events = () => {
       time: "2:00 PM",
       price: "$120 per person",
       description: "Learn to cook signature dishes with our executive chef in this hands-on culinary masterclass.",
-      image: "https://images.pexels.com/photos/3184183/pexels-photo-3184183.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+      image: "/willis10.jpg",
       category: "Workshop"
     },
     {
@@ -109,7 +109,7 @@ const Events = () => {
       time: "6:00 PM",
       price: "$45 per person",
       description: "Connect with local business leaders and entrepreneurs in an elegant networking environment.",
-      image: "https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+      image: "/willis5.jpg",
       category: "Business"
     }
   ];

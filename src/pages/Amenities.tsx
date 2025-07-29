@@ -164,7 +164,7 @@ const Amenities = () => {
             
             <div className="relative h-96 lg:h-auto">
               <img 
-                src="https://images.pexels.com/photos/3757942/pexels-photo-3757942.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
+                src="/willis7.jpg"
                 alt="Spa treatment room"
                 className="w-full h-full object-cover"
               />

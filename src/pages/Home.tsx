@@ -10,19 +10,19 @@ const Home = () => {
     {
       name: "Single Room",
       price: "KES 3,500",
-      image: "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: "/willis2.jpg",
       description: "Comfortable single room with modern amenities"
     },
     {
       name: "Deluxe Room",
       price: "KES 4,500",
-      image: "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: "/willis3.jpg",
       description: "Spacious room with double bed and premium amenities"
     },
     {
       name: "Superior Room",
       price: "KES 5,500",
-      image: "https://images.pexels.com/photos/1743229/pexels-photo-1743229.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: "/willis4.jpg",
       description: "Our finest room with superior amenities and garden views"
     }
   ];
@@ -69,7 +69,7 @@ const Home = () => {
             </div>
             <div className="relative">
               <img 
-                src="https://images.pexels.com/photos/1134176/pexels-photo-1134176.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
+                src="/willis5.jpg"
                 alt="Hotel lobby"
                 className="rounded-2xl shadow-2xl w-full h-96 object-cover"
               />

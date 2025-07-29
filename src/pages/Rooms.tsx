@@ -10,11 +10,11 @@ const Rooms = () => {
       name: "Single Room",
       price: "KES 3,500",
       originalPrice: "KES 4,000",
-      image: "https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: "/willis2.jpg",
       gallery: [
-        "https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-        "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-        "https://images.pexels.com/photos/1743229/pexels-photo-1743229.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
+        "/willis2.jpg",
+        "/willis6.jpg",
+        "/willis7.jpg"
       ],
       size: "32 sqm",
       guests: "2 Guests",
@@ -29,11 +29,11 @@ const Rooms = () => {
       name: "Deluxe Room",
       price: "KES 4,500",
       originalPrice: "KES 5,000",
-      image: "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: "/willis3.jpg",
       gallery: [
-        "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-        "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-        "https://images.pexels.com/photos/1743229/pexels-photo-1743229.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
+        "/willis3.jpg",
+        "/willis8.jpg",
+        "/willis9.jpg"
       ],
       size: "45 sqm",
       guests: "2 Guests",
@@ -48,11 +48,11 @@ const Rooms = () => {
       name: "Superior Room",
       price: "KES 5,500",
       originalPrice: "KES 6,000",
-      image: "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: "/willis4.jpg",
       gallery: [
-        "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-        "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-        "https://images.pexels.com/photos/1743229/pexels-photo-1743229.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
+        "/willis4.jpg",
+        "/willis10.jpg",
+        "/willis5.jpg"
       ],
       size: "65 sqm",
       guests: "2 Guests",

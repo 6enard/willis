@@ -9,7 +9,7 @@ const Dining = () => {
       id: 1,
       name: "The Grand Terrace",
       cuisine: "International Fine Dining",
-      image: "https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: "/willis8.jpg",
       description: "Elegant rooftop dining with panoramic city views and contemporary international cuisine crafted by our award-winning chef.",
       longDescription: "Experience culinary artistry at its finest in our flagship restaurant. The Grand Terrace offers an sophisticated atmosphere with floor-to-ceiling windows showcasing breathtaking city views. Our menu features seasonal ingredients sourced from local farms, prepared with innovative techniques that honor both tradition and creativity.",
       hours: "6:00 PM - 11:00 PM",
@@ -25,7 +25,7 @@ const Dining = () => {
       id: 2,
       name: "Savannah Grill",
       cuisine: "African & Continental",
-      image: "https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: "/willis9.jpg",
       description: "Authentic African flavors meet continental classics in a warm, inviting atmosphere celebrating local culinary traditions.",
       longDescription: "Discover the rich flavors of East African cuisine alongside international favorites. Our chefs blend traditional spices and cooking methods with modern presentation, creating dishes that tell the story of Kenya's diverse culinary heritage.",
       hours: "12:00 PM - 10:00 PM",
@@ -41,7 +41,7 @@ const Dining = () => {
       id: 3,
       name: "Azure Lounge",
       cuisine: "Cocktails & Light Bites",
-      image: "https://images.pexels.com/photos/1267697/pexels-photo-1267697.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: "/willis10.jpg",
       description: "Sophisticated cocktail lounge with artisanal drinks and gourmet small plates, perfect for evening socializing.",
       longDescription: "Unwind in our chic lounge featuring handcrafted cocktails made with premium spirits and fresh ingredients. Our mixologists create both classic cocktails and innovative signature drinks, paired perfectly with our selection of gourmet appetizers and small plates.",
       hours: "4:00 PM - 2:00 AM",
@@ -57,7 +57,7 @@ const Dining = () => {
       id: 4,
       name: "Garden Café",
       cuisine: "Breakfast & Light Meals",
-      image: "https://images.pexels.com/photos/1581384/pexels-photo-1581384.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: "/willis5.jpg",
       description: "Casual all-day dining in a beautiful garden setting, serving fresh breakfast, lunch, and healthy options.",
       longDescription: "Start your day in our serene garden café surrounded by lush greenery. We serve everything from hearty breakfast buffets to light, healthy meals throughout the day. Perfect for business meetings or casual dining with family.",
       hours: "6:00 AM - 6:00 PM",
@@ -79,7 +79,7 @@ const Dining = () => {
       duration: "3 hours",
       availability: "Friday & Saturday, 7:00 PM",
       maxGuests: "12 guests",
-      image: "https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
+      image: "/willis8.jpg"
     },
     {
       title: "Wine Tasting Dinner",
@@ -88,7 +88,7 @@ const Dining = () => {
       duration: "2.5 hours",
       availability: "Every Wednesday, 7:30 PM",
       maxGuests: "20 guests",
-      image: "https://images.pexels.com/photos/1407846/pexels-photo-1407846.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
+      image: "/willis9.jpg"
     },
     {
       title: "Cooking Masterclass",
@@ -97,7 +97,7 @@ const Dining = () => {
       duration: "4 hours",
       availability: "Saturdays, 2:00 PM",
       maxGuests: "8 guests",
-      image: "https://images.pexels.com/photos/3184183/pexels-photo-3184183.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
+      image: "/willis10.jpg"
     }
   ];
 
