@@ -109,7 +109,7 @@ const Header = () => {
                   className={`transition-colors ${
                     isActive(item.to)
                       ? 'text-slate-900 font-semibold'
-                      : 'text-slate-700 hover:text-slate-900'
+                      : 'text-slate-700 hover:text-slate-900' 
                   }`}
                 >
                   {item.label}
