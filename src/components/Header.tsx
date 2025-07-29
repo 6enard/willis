@@ -107,11 +107,11 @@ const Header = () => {
                   key={item.to}
                   to={item.to}
                   onClick={() => setIsMenuOpen(false)}
-                  className={block py-2 px-2 rounded-md transition-colors touch-manipulation ${
+                  className={`block py-2 px-2 rounded-md transition-colors touch-manipulation ${
                     isActive(item.to)
                       ? 'text-slate-900 font-semibold'
                       : 'text-slate-700 hover:text-slate-900'
-                  }}
+                  }`}
                 >
                   {item.label}
                 </Link>
