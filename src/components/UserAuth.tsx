@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Mail, Lock, UserPlus, LogIn } from "lucide-react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth } from "../config/firebase";
 import { toast } from "react-hot-toast";
 
 interface UserAuthProps {
