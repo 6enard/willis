@@ -7,7 +7,6 @@ import UserAuth from './UserAuth';
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
-  const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
   const location = useLocation();
   const { user, userProfile, logout } = useAuth();
