@@ -87,6 +87,7 @@ const Header = () => {
                 >
                   Dashboard
                 </Link>
+                )}
                 <button
                   onClick={logout}
                   className="bg-red-600 text-white px-3 xl:px-4 2xl:px-6 py-2 rounded-lg hover:bg-red-700 transition-colors text-sm xl:text-base font-medium"
@@ -132,20 +133,13 @@ const Header = () => {
                 { to: '/amenities', label: 'Amenities' },
                 { to: '/dining', label: 'Dining' },
                 { to: '/events', label: 'Events' },
-                    <span className="text-slate-700 font-medium">
-                      Welcome, {userProfile?.fullName || user.email}
-                    </span>
-                    {userProfile?.isAdmin && (
                 { to: '/gallery', label: 'Gallery' },
                 { to: '/contact', label: 'Contact' },
               ].map((item) => (
                 <Link
                   key={item.to}
                   to={item.to}
-                    )}
-                    )}
                   onClick={() => setIsMenuOpen(false)}
-                    )}
                   className={`transition-colors ${
                     isActive(item.to)
                       ? 'text-slate-900 font-semibold'
@@ -157,27 +151,10 @@ const Header = () => {
               ))}
               {user ? (
                 <>
-                  <>
-                    <button
-                      onClick={() => {
-                        setAuthMode('login');
-                        setIsAuthOpen(true);
-                        setIsMenuOpen(false);
-                      }}
-                      className="text-slate-700 hover:text-slate-900 transition-colors"
-                    >
-                      Sign In
-                    </button>
-                    <button
-                      onClick={() => {
-                        setAuthMode('register');
-                        setIsAuthOpen(true);
-                        setIsMenuOpen(false);
-                      }}
-                      className="text-slate-700 hover:text-slate-900 transition-colors"
-                    >
-                      Sign Up
-                    </button>
+                  <span className="text-slate-700 font-medium">
+                    Welcome, {userProfile?.fullName || user.email}
+                  </span>
+                  {userProfile?.isAdmin && (
                   <Link
                     to="/admin/dashboard"
                     onClick={() => setIsMenuOpen(false)}
@@ -185,7 +162,7 @@ const Header = () => {
                   >
                     Dashboard
                   </Link>
-                  </>
+                  )}
                   <button
                     onClick={() => {
                       logout();
@@ -197,13 +174,35 @@ const Header = () => {
                   </button>
                 </>
               ) : (
-                <Link
-                  to="/admin/login"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="text-slate-700 hover:text-slate-900 transition-colors"
-                >
-                  Admin Login
-                </Link>
+                <>
+                  <button
+                    onClick={() => {
+                      setAuthMode('login');
+                      setIsAuthOpen(true);
+                      setIsMenuOpen(false);
+                    }}
+                    className="text-slate-700 hover:text-slate-900 transition-colors"
+                  >
+                    Sign In
+                  </button>
+                  <button
+                    onClick={() => {
+                      setAuthMode('register');
+                      setIsAuthOpen(true);
+                      setIsMenuOpen(false);
+                    }}
+                    className="text-slate-700 hover:text-slate-900 transition-colors"
+                  >
+                    Sign Up
+                  </button>
+                  <Link
+                    to="/admin/login"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="text-slate-700 hover:text-slate-900 transition-colors"
+                  >
+                    Admin Login
+                  </Link>
+                </>
               )}
               <button 
                 onClick={() => {
