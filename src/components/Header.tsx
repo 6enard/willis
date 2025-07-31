@@ -133,9 +133,11 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Mobile Nav Menu */}
+        </div>
+
+        {/* Mobile Nav Menu - moved outside of nav container */}
         {isMenuOpen && (
-          <div className="lg:hidden absolute top-full left-0 right-0 bg-white shadow-lg z-40">
+          <div className="lg:hidden fixed top-full left-0 right-0 bg-white shadow-lg z-[60] border-t border-gray-200">
             <div className="flex flex-col p-4 space-y-2 font-poppins">
               {[
                 { to: '/', label: 'Home' },
@@ -217,7 +219,7 @@ const Header = () => {
             </div>
           </div>
         )}
-      </nav>
+      </div>
     </header>
   );
 };
