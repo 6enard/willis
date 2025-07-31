@@ -221,7 +221,14 @@ const Home = () => {
                     >
                       View Details
                     </button>
-                    <button className="font-poppins flex-1 bg-amber-500 hover:bg-amber-600 text-white py-2 sm:py-3 rounded-lg transition-colors font-semibold text-sm sm:text-base">
+                    <button 
+                      onClick={() => setBookingForm({ 
+                        isOpen: true, 
+                        roomType: room.name, 
+                        roomPrice: parseInt(room.price.replace('KSh ', '').replace(',', '')) 
+                      })}
+                      className="font-poppins flex-1 bg-amber-500 hover:bg-amber-600 text-white py-2 sm:py-3 rounded-lg transition-colors font-semibold text-sm sm:text-base"
+                    >
                       Book Now
                     </button>
                   </div>
@@ -329,7 +336,17 @@ const Home = () => {
                           >
                             View All Rooms
                           </Link>
-                          <button className="flex-1 bg-amber-500 hover:bg-amber-600 text-white py-3 rounded-lg transition-colors font-semibold">
+                          <button 
+                            onClick={() => {
+                              setSelectedRoom(null);
+                              setBookingForm({ 
+                                isOpen: true, 
+                                roomType: room.name, 
+                                roomPrice: parseInt(room.price.replace('KSh ', '').replace(',', '')) 
+                              });
+                            }}
+                            className="flex-1 bg-amber-500 hover:bg-amber-600 text-white py-3 rounded-lg transition-colors font-semibold"
+                          >
                             Book This Room
                           </button>
                         </div>
@@ -342,6 +359,14 @@ const Home = () => {
           </div>
         </div>
       )}
+
+      {/* Booking Form */}
+      <BookingForm 
+        isOpen={bookingForm.isOpen}
+        onClose={() => setBookingForm({ isOpen: false })}
+        roomType={bookingForm.roomType}
+        roomPrice={bookingForm.roomPrice}
+      />
 
       {/* Services Section */}
       <section className="py-12 sm:py-16 lg:py-20 bg-gray-50">

@@ -1,0 +1,31 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow read/write access to bookings for authenticated users only
+    match /bookings/{bookingId} {
+      allow read, write: if request.auth != null;
+    }
+    
+    // Allow public read access to hotel information (if needed)
+    match /hotel/{document} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    
+    // Allow public write access to create new bookings (for guest bookings)
+    match /bookings/{bookingId} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+    
+    // Admin-only access to user management
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Admin settings (only authenticated users)
+    match /settings/{document} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}

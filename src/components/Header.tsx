@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, Mail, MapPin } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { user, logout } = useAuth();
 
   const isActive = (path: string) => location.pathname === path; 
 
@@ -70,6 +72,29 @@ const Header = () => {
                 {item.label}
               </Link>
             ))}
+            {user ? (
+              <div className="flex items-center space-x-4">
+                <Link
+                  to="/admin/dashboard"
+                  className="text-slate-700 hover:text-slate-900 transition-colors text-sm xl:text-base"
+                >
+                  Dashboard
+                </Link>
+                <button
+                  onClick={logout}
+                  className="bg-red-600 text-white px-3 xl:px-4 2xl:px-6 py-2 rounded-lg hover:bg-red-700 transition-colors text-sm xl:text-base font-medium"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <Link
+                to="/admin/login"
+                className="text-slate-700 hover:text-slate-900 transition-colors text-sm xl:text-base mr-4"
+              >
+                Admin
+              </Link>
+            )}
             <button className="bg-slate-900 text-white px-3 xl:px-4 2xl:px-6 py-2 rounded-lg hover:bg-slate-800 transition-colors text-sm xl:text-base font-medium">
               Book Now
             </button>
@@ -116,6 +141,34 @@ const Header = () => {
                   {item.label}
                 </Link>
               ))}
+              {user ? (
+                <>
+                  <Link
+                    to="/admin/dashboard"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="text-slate-700 hover:text-slate-900 transition-colors"
+                  >
+                    Dashboard
+                  </Link>
+                  <button
+                    onClick={() => {
+                      logout();
+                      setIsMenuOpen(false);
+                    }}
+                    className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors w-full text-left"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <Link
+                  to="/admin/login"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="text-slate-700 hover:text-slate-900 transition-colors"
+                >
+                  Admin Login
+                </Link>
+              )}
               <button className="bg-slate-900 text-white px-6 py-2 rounded-lg hover:bg-slate-800 transition-colors w-full">
                 Book Now
               </button>

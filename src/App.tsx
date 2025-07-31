@@ -11,6 +11,10 @@ import Dining from './pages/Dining';
 import Events from './pages/Events';
 import Contact from './pages/Contact';
 import Gallery from './pages/Gallery';
+import AdminLogin from './components/AdminLogin';
+import AdminDashboard from './components/AdminDashboard';
+import ProtectedRoute from './components/ProtectedRoute';
+import { AuthProvider } from './contexts/AuthContext';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -24,23 +28,34 @@ function ScrollToTop() {
 
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen">
-        <ScrollToTop />
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/rooms" element={<Rooms />} />
-          <Route path="/amenities" element={<Amenities />} />
-          <Route path="/dining" element={<Dining />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/gallery" element={<Gallery />} />
-        </Routes>
-        <Footer />
-        <WhatsAppButton />
-      </div>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <div className="min-h-screen">
+          <ScrollToTop />
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/rooms" element={<Rooms />} />
+            <Route path="/amenities" element={<Amenities />} />
+            <Route path="/dining" element={<Dining />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route 
+              path="/admin/dashboard" 
+              element={
+                <ProtectedRoute>
+                  <AdminDashboard />
+                </ProtectedRoute>
+              } 
+            />
+          </Routes>
+          <Footer />
+          <WhatsAppButton />
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 
