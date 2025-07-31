@@ -9,11 +9,10 @@ const Header = () => {
   const navigate = useNavigate();
   const { user, userProfile, logout } = useAuth();
 
-  const isActive = (path: string) => location.pathname === path; 
+  const isActive = (path: string) => location.pathname === path;
 
   const handleBookNow = () => {
     if (user && userProfile) {
-      // Navigate to rooms page for booking
       navigate('/rooms');
     } else {
       navigate('/login');
@@ -45,15 +44,11 @@ const Header = () => {
       </div>
 
       {/* Main nav */}
-      <nav className="max-w-7xl mx-auto px-4 py-2 sm:py-3 md:py-4">
+      <nav className="relative max-w-7xl mx-auto px-4 py-2 sm:py-3 md:py-4">
         <div className="flex justify-between items-center">
-          {/* Logo + Name linking to /home */}
+          {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 sm:space-x-3 hover:opacity-90 transition-opacity">
-            <img
-              src="/logo.png"
-              alt="The Willis Hotel"
-              className="h-10 sm:h-12 md:h-14 w-auto"
-            />
+            <img src="/logo.png" alt="The Willis Hotel" className="h-10 sm:h-12 md:h-14 w-auto" />
             <span className="text-xl sm:text-2xl md:text-3xl font-playfair font-bold text-slate-900">
               The Willis Hotel
             </span>
@@ -82,22 +77,20 @@ const Header = () => {
                 {item.label}
               </Link>
             ))}
+
             {user ? (
               <div className="flex items-center space-x-4">
                 <span className="text-slate-700 text-sm">
                   Welcome, {userProfile?.fullName || user.email}
                 </span>
                 {userProfile?.isAdmin && (
-                <Link
-                  to="/admin/dashboard"
-                  className="text-slate-700 hover:text-slate-900 transition-colors text-sm xl:text-base"
-                >
-                  Dashboard
-                </Link>
+                  <Link to="/admin/dashboard" className="text-slate-700 hover:text-slate-900 text-sm xl:text-base">
+                    Dashboard
+                  </Link>
                 )}
                 <button
                   onClick={logout}
-                  className="bg-red-600 text-white px-3 xl:px-4 2xl:px-6 py-2 rounded-lg hover:bg-red-700 transition-colors text-sm xl:text-base font-medium"
+                  className="bg-red-600 text-white px-3 xl:px-4 2xl:px-6 py-2 rounded-lg hover:bg-red-700 text-sm xl:text-base font-medium"
                 >
                   Logout
                 </button>
@@ -105,14 +98,15 @@ const Header = () => {
             ) : (
               <Link
                 to="/admin/login"
-                className="text-slate-700 hover:text-slate-900 transition-colors text-sm xl:text-base mr-4"
+                className="text-slate-700 hover:text-slate-900 text-sm xl:text-base mr-4"
               >
                 Admin
               </Link>
             )}
-            <button 
+
+            <button
               onClick={handleBookNow}
-              className="bg-slate-900 text-white px-3 xl:px-4 2xl:px-6 py-2 rounded-lg hover:bg-slate-800 transition-colors text-sm xl:text-base font-medium"
+              className="bg-slate-900 text-white px-3 xl:px-4 2xl:px-6 py-2 rounded-lg hover:bg-slate-800 text-sm xl:text-base font-medium"
             >
               Book Now
             </button>
@@ -122,21 +116,16 @@ const Header = () => {
           <div className="lg:hidden z-50">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 rounded-md text-slate-800 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-400"
+              className="p-2 rounded-md text-slate-800 hover:bg-slate-100 focus:outline-none"
             >
-              {isMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
-      </nav>
 
-        {/* Mobile Nav Menu - moved outside of nav container */}
+        {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden fixed top-full left-0 right-0 bg-white shadow-lg z-[60] border-t border-gray-200">
+          <div className="absolute top-full left-0 right-0 bg-white shadow-md border-t border-gray-200 z-40">
             <div className="flex flex-col p-4 space-y-2 font-poppins">
               {[
                 { to: '/', label: 'Home' },
@@ -154,13 +143,13 @@ const Header = () => {
                   className={`py-2 px-3 rounded-lg transition-colors ${
                     isActive(item.to)
                       ? 'text-slate-900 font-semibold'
-                      : 'text-slate-700 hover:text-slate-900' 
+                      : 'text-slate-700 hover:text-slate-900'
                   }`}
                 >
                   {item.label}
                 </Link>
               ))}
-              
+
               {user ? (
                 <>
                   <div className="py-2 px-3">
@@ -169,20 +158,20 @@ const Header = () => {
                     </span>
                   </div>
                   {userProfile?.isAdmin && (
-                  <Link
-                    to="/admin/dashboard"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="py-2 px-3 rounded-lg text-slate-700 hover:text-slate-900 transition-colors"
-                  >
-                    Dashboard
-                  </Link>
+                    <Link
+                      to="/admin/dashboard"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="py-2 px-3 rounded-lg text-slate-700 hover:text-slate-900"
+                    >
+                      Dashboard
+                    </Link>
                   )}
                   <button
                     onClick={() => {
                       logout();
                       setIsMenuOpen(false);
                     }}
-                    className="bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-700 transition-colors"
+                    className="bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-700"
                   >
                     Logout
                   </button>
@@ -194,31 +183,30 @@ const Header = () => {
                       navigate('/login');
                       setIsMenuOpen(false);
                     }}
-                    className="py-2 px-3 rounded-lg text-slate-700 hover:text-slate-900 transition-colors"
+                    className="py-2 px-3 text-slate-700 hover:text-slate-900"
                   >
                     Sign In
                   </button>
                   <Link
                     to="/admin/login"
                     onClick={() => setIsMenuOpen(false)}
-                    className="py-2 px-3 rounded-lg text-slate-700 hover:text-slate-900 transition-colors"
+                    className="py-2 px-3 text-slate-700 hover:text-slate-900"
                   >
                     Admin Login
                   </Link>
                 </>
               )}
-              
-              {/* Book Now Button */}
-              <button 
+
+              <button
                 onClick={handleBookNow}
-                className="bg-slate-900 text-white px-3 py-2 rounded-lg hover:bg-slate-800 transition-colors font-medium"
+                className="bg-slate-900 text-white px-3 py-2 rounded-lg hover:bg-slate-800 font-medium"
               >
                 Book Now
               </button>
             </div>
           </div>
         )}
-      
+      </nav>
     </header>
   );
 };
