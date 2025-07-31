@@ -99,7 +99,8 @@ body {
   
   /* Adjust mobile menu height for landscape tablets */
   .xl\:hidden .fixed {
-    top: 100px;
+    top: 120px !important;
+    z-index: 60 !important;
   }
 }
 
@@ -119,5 +120,17 @@ body {
     display: flex;
     align-items: center;
     padding: 0.75rem 1rem;
+  }
+}
+
+/* Ensure mobile menu appears above all content */
+@media (max-width: 1279px) {
+  .xl\:hidden .fixed {
+    z-index: 60 !important;
+  }
+  
+  /* Ensure header stays on top */
+  header {
+    z-index: 50 !important;
   }
 }

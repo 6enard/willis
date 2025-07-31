@@ -125,7 +125,7 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="xl:hidden fixed inset-x-0 top-[120px] bottom-0 bg-white shadow-xl z-40 overflow-y-auto">
+          <div className="xl:hidden fixed inset-x-0 top-[120px] bottom-0 bg-white shadow-xl z-[60] overflow-y-auto">
             <div className="flex flex-col p-6 space-y-3 font-poppins min-h-full">
               {[
                 { to: '/', label: 'Home' },
@@ -209,7 +209,7 @@ const Header = () => {
             </div>
             
             {/* Close overlay when clicking outside */}
-            <div className="absolute inset-0 -z-10" onClick={() => setIsMenuOpen(false)}></div>
+            <div className="fixed inset-0 bg-black/20 -z-10" onClick={() => setIsMenuOpen(false)}></div>
           </div>
         )}
       </nav>
