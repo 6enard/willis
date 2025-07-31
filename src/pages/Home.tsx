@@ -250,7 +250,7 @@ const Home = () => {
                     </button>
                     <button 
                       onClick={() => handleBookRoom(room)}
-                      className="font-poppins flex-1 bg-amber-500 hover:bg-amber-600 text-white py-2 sm:py-3 rounded-lg transition-colors font-semibold text-sm sm:text-base"
+                      className="font-poppins flex-1 bg-amber-500 hover:bg-amber-600 text-white py-3 rounded-lg transition-colors font-semibold text-sm sm:text-base"
                     >
                       Book Now
                     </button>
@@ -333,10 +333,11 @@ const Home = () => {
       )}
 
       {/* Booking Modal */}
-      {bookingRoom && (
+      {bookingRoom && user && userProfile && (
         <RoomBooking 
-          room={bookingRoom} 
+          isOpen={!!bookingRoom}
           onClose={() => setBookingRoom(null)} 
+          selectedRoom={bookingRoom}
         />
       )}
     </div>

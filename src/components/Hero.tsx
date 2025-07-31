@@ -151,7 +151,7 @@ const Hero = () => {
             <div className="mt-6 text-center">
               <button 
                 onClick={handleBookNow}
-                className="bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold py-3 px-8 rounded-xl transition-all duration-300 hover:bg-white/20 text-sm sm:text-base"
+                className="bg-amber-600 hover:bg-amber-700 text-white font-semibold py-3 px-8 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg text-sm sm:text-base"
               >
                 Book Now
               </button>

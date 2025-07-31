@@ -153,19 +153,29 @@ const RoomBooking: React.FC<RoomBookingProps> = ({ isOpen, onClose, selectedRoom
 
   if (!isOpen || !selectedRoom) return null;
 
-  // Redirect to login if user is not authenticated
   if (!user || !userProfile) {
     return (
       <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl p-8 max-w-md w-full text-center">
           <h3 className="text-2xl font-bold text-gray-900 mb-4">Sign In Required</h3>
           <p className="text-gray-600 mb-6">Please sign in to your account to make a booking.</p>
-          <button 
-            onClick={onClose}
-            className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-lg transition-colors font-semibold"
-          >
-            Close
-          </button>
+          <div className="flex space-x-4">
+            <button 
+              onClick={onClose}
+              className="flex-1 bg-gray-100 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-200 transition-colors font-semibold"
+            >
+              Close
+            </button>
+            <button 
+              onClick={() => {
+                onClose();
+                // This will be handled by the parent component to show auth modal
+              }}
+              className="flex-1 bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-lg transition-colors font-semibold"
+            >
+              Sign In
+            </button>
+          </div>
         </div>
       </div>
     );

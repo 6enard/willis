@@ -176,7 +176,7 @@ const Rooms = () => {
                   </button>
                   <button 
                     onClick={() => handleBookRoom(room)}
-                    className="flex-1 bg-amber-500 hover:bg-amber-600 text-white py-2 px-4 rounded-lg transition-colors font-semibold text-sm"
+                    className="flex-1 bg-amber-500 hover:bg-amber-600 text-white py-3 px-4 rounded-lg transition-colors font-semibold text-sm"
                   >
                     Book Now
                   </button>

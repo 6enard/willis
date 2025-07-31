@@ -7,6 +7,7 @@ import UserAuth from './UserAuth';
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
+  const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
   const location = useLocation();
   const { user, userProfile, logout } = useAuth();
@@ -103,7 +104,20 @@ const Header = () => {
                 Admin
               </Link>
             )}
-            <button className="bg-slate-900 text-white px-3 xl:px-4 2xl:px-6 py-2 rounded-lg hover:bg-slate-800 transition-colors text-sm xl:text-base font-medium">
+            <button 
+              onClick={() => {
+                if (user && userProfile) {
+                  // Scroll to booking section or open booking modal
+                  const heroSection = document.getElementById('home');
+                  if (heroSection) {
+                    heroSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                } else {
+                  setIsAuthOpen(true);
+                }
+              }}
+              className="bg-slate-900 text-white px-3 xl:px-4 2xl:px-6 py-2 rounded-lg hover:bg-slate-800 transition-colors text-sm xl:text-base font-medium"
+            >
               Book Now
             </button>
           </div>
@@ -206,12 +220,14 @@ const Header = () => {
               )}
               <button 
                 onClick={() => {
-                  if (user && userProfile) {
-                    // Open booking for logged in users
-                    // You can add booking modal logic here
-                  } else {
-                    setAuthMode('login');
+                  if (!user || !userProfile) {
                     setIsAuthOpen(true);
+                  } else {
+                    // Scroll to booking section
+                    const heroSection = document.getElementById('home');
+                    if (heroSection) {
+                      heroSection.scrollIntoView({ behavior: 'smooth' });
+                    }
                   }
                   setIsMenuOpen(false);
                 }}
@@ -226,11 +242,13 @@ const Header = () => {
       </nav>
       
       {/* User Authentication Modal */}
-      <UserAuth 
-        isOpen={isAuthOpen}
-        onClose={() => setIsAuthOpen(false)}
-        initialMode={authMode}
-      />
+      {isAuthOpen && (
+        <UserAuth 
+          isOpen={isAuthOpen}
+          onClose={() => setIsAuthOpen(false)}
+          initialMode="login"
+        />
+      )}
     </header>
   );
 };
