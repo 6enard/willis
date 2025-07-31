@@ -1,14 +1,25 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Phone, Mail, MapPin } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const { user, userProfile, logout } = useAuth();
 
   const isActive = (path: string) => location.pathname === path; 
+
+  const handleBookNow = () => {
+    if (user && userProfile) {
+      // Navigate to rooms page for booking
+      navigate('/rooms');
+    } else {
+      navigate('/login');
+    }
+    setIsMenuOpen(false);
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
@@ -18,12 +29,11 @@ const Header = () => {
           <div className="flex flex-col sm:flex-row items-center space-y-1 sm:space-y-0 sm:space-x-6">
             <div className="flex items-center space-x-2">
               <Phone className="w-3 h-3 sm:w-4 sm:h-4" />
-
               <span>0758 000 010</span>
             </div>
             <div className="flex items-center space-x-2">
               <Mail className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span>hotelthewillis@gmail.com .</span>
+              <span>hotelthewillis@gmail.com</span>
             </div>
           </div>
           <div className="flex items-center space-x-2 mt-1 sm:mt-0">
@@ -101,14 +111,7 @@ const Header = () => {
               </Link>
             )}
             <button 
-              onClick={() => {
-                if (user && userProfile) {
-                  // Navigate to rooms page for booking
-                  window.location.href = '/rooms';
-                } else {
-                  navigate('/login');
-                }
-              }}
+              onClick={handleBookNow}
               className="bg-slate-900 text-white px-3 xl:px-4 2xl:px-6 py-2 rounded-lg hover:bg-slate-800 transition-colors text-sm xl:text-base font-medium"
             >
               Book Now
@@ -132,8 +135,8 @@ const Header = () => {
 
         {/* Mobile Nav Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden mt-3 py-4 px-2 border-t font-poppins bg-white shadow-md rounded-md">
-            <div className="flex flex-col space-y-4">
+          <div className="lg:hidden fixed inset-x-0 top-[120px] bottom-0 bg-white shadow-lg z-40 overflow-y-auto">
+            <div className="flex flex-col p-4 space-y-4 font-poppins">
               {[
                 { to: '/', label: 'Home' },
                 { to: '/rooms', label: 'Rooms' },
@@ -147,25 +150,31 @@ const Header = () => {
                   key={item.to}
                   to={item.to}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`transition-colors ${
+                  className={`py-3 px-4 rounded-lg transition-colors ${
                     isActive(item.to)
-                      ? 'text-slate-900 font-semibold'
-                      : 'text-slate-700 hover:text-slate-900' 
+                      ? 'text-slate-900 font-semibold bg-slate-100'
+                      : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50' 
                   }`}
                 >
                   {item.label}
                 </Link>
               ))}
+              
+              {/* Divider */}
+              <div className="border-t border-slate-200 my-4"></div>
+              
               {user ? (
                 <>
-                  <span className="text-slate-700 font-medium">
-                    Welcome, {userProfile?.fullName || user.email}
-                  </span>
+                  <div className="py-3 px-4">
+                    <span className="text-slate-700 font-medium">
+                      Welcome, {userProfile?.fullName || user.email}
+                    </span>
+                  </div>
                   {userProfile?.isAdmin && (
                   <Link
                     to="/admin/dashboard"
                     onClick={() => setIsMenuOpen(false)}
-                    className="text-slate-700 hover:text-slate-900 transition-colors"
+                    className="py-3 px-4 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-50 transition-colors"
                   >
                     Dashboard
                   </Link>
@@ -175,7 +184,7 @@ const Header = () => {
                       logout();
                       setIsMenuOpen(false);
                     }}
-                    className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors w-full text-left"
+                    className="bg-red-600 text-white px-4 py-3 rounded-lg hover:bg-red-700 transition-colors w-full text-left"
                   >
                     Logout
                   </button>
@@ -187,47 +196,33 @@ const Header = () => {
                       navigate('/login');
                       setIsMenuOpen(false);
                     }}
-                    className="text-slate-700 hover:text-slate-900 transition-colors"
+                    className="py-3 px-4 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-50 transition-colors text-left"
                   >
                     Sign In
-                  </button>
-                  <button
-                    onClick={() => {
-                      navigate('/login');
-                      setIsMenuOpen(false);
-                    }}
-                    className="text-slate-700 hover:text-slate-900 transition-colors"
-                  >
-                    Sign Up
                   </button>
                   <Link
                     to="/admin/login"
                     onClick={() => setIsMenuOpen(false)}
-                    className="text-slate-700 hover:text-slate-900 transition-colors"
+                    className="py-3 px-4 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-50 transition-colors"
                   >
                     Admin Login
                   </Link>
                 </>
               )}
+              
+              {/* Book Now Button */}
               <button 
-                onClick={() => {
-                  if (user && userProfile) {
-                    // Navigate to rooms page for booking
-                    window.location.href = '/rooms';
-                  } else {
-                    setAuthMode('login');
-                    setIsAuthOpen(true);
-                  }
-                  setIsMenuOpen(false);
-                }}
-                className="bg-slate-900 text-white px-6 py-2 rounded-lg hover:bg-slate-800 transition-colors w-full"
+                onClick={handleBookNow}
+                className="bg-slate-900 text-white px-4 py-3 rounded-lg hover:bg-slate-800 transition-colors w-full font-medium"
               >
                 Book Now
               </button>
+              
+              {/* Extra padding at bottom for scroll */}
+              <div className="h-8"></div>
             </div>
           </div>
         )}
-
       </nav>
     </header>
   );
