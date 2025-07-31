@@ -125,7 +125,7 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="absolute top-full left-0 right-0 bg-white shadow-md border-t border-gray-200 z-40">
+          <div className="lg:hidden bg-white shadow-md border-t border-gray-200 mt-2 rounded-lg mx-4">
             <div className="flex flex-col p-4 space-y-2 font-poppins">
               {[
                 { to: '/', label: 'Home' },
@@ -140,10 +140,10 @@ const Header = () => {
                   key={item.to}
                   to={item.to}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`py-2 px-3 rounded-lg transition-colors ${
+                  className={`py-3 px-4 rounded-lg transition-colors text-base ${
                     isActive(item.to)
-                      ? 'text-slate-900 font-semibold'
-                      : 'text-slate-700 hover:text-slate-900'
+                      ? 'text-slate-900 font-semibold bg-amber-50'
+                      : 'text-slate-700 hover:text-slate-900 hover:bg-gray-50'
                   }`}
                 >
                   {item.label}
@@ -152,8 +152,8 @@ const Header = () => {
 
               {user ? (
                 <>
-                  <div className="py-2 px-3">
-                    <span className="text-slate-700 font-medium">
+                  <div className="py-3 px-4 border-t border-gray-200 mt-2 pt-4">
+                    <span className="text-slate-700 font-medium text-sm">
                       Welcome, {userProfile?.fullName || user.email}
                     </span>
                   </div>
@@ -161,7 +161,7 @@ const Header = () => {
                     <Link
                       to="/admin/dashboard"
                       onClick={() => setIsMenuOpen(false)}
-                      className="py-2 px-3 rounded-lg text-slate-700 hover:text-slate-900"
+                      className="py-3 px-4 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-gray-50 text-base"
                     >
                       Dashboard
                     </Link>
@@ -171,7 +171,7 @@ const Header = () => {
                       logout();
                       setIsMenuOpen(false);
                     }}
-                    className="bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-700"
+                    className="bg-red-600 text-white px-4 py-3 rounded-lg hover:bg-red-700 font-medium"
                   >
                     Logout
                   </button>
@@ -183,14 +183,14 @@ const Header = () => {
                       navigate('/login');
                       setIsMenuOpen(false);
                     }}
-                    className="py-2 px-3 text-slate-700 hover:text-slate-900"
+                    className="py-3 px-4 text-slate-700 hover:text-slate-900 hover:bg-gray-50 rounded-lg text-base"
                   >
                     Sign In
                   </button>
                   <Link
                     to="/admin/login"
                     onClick={() => setIsMenuOpen(false)}
-                    className="py-2 px-3 text-slate-700 hover:text-slate-900"
+                    className="py-3 px-4 text-slate-700 hover:text-slate-900 hover:bg-gray-50 rounded-lg text-base"
                   >
                     Admin Login
                   </Link>
@@ -199,7 +199,7 @@ const Header = () => {
 
               <button
                 onClick={handleBookNow}
-                className="bg-slate-900 text-white px-3 py-2 rounded-lg hover:bg-slate-800 font-medium"
+                className="bg-slate-900 text-white px-4 py-3 rounded-lg hover:bg-slate-800 font-medium mt-2"
               >
                 Book Now
               </button>
