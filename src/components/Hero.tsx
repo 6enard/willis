@@ -56,7 +56,7 @@ const Hero = () => {
       setSelectedRoom(defaultRoom);
       setIsBookingOpen(true);
     } else {
-      navigate('/login', { state: { from: { pathname: '/' } } });
+      navigate('/login');
     }
   };
 

@@ -145,7 +145,7 @@ const Home = () => {
     if (user && userProfile) {
       setBookingRoom(room);
     } else {
-      navigate('/login', { state: { from: { pathname: '/' } } });
+      navigate('/login');
     }
   };
 

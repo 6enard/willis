@@ -2,12 +2,9 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, Mail, MapPin } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import UserAuth from './UserAuth';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isAuthOpen, setIsAuthOpen] = useState(false);
-  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
   const location = useLocation();
   const { user, userProfile, logout } = useAuth();
 
@@ -109,9 +106,7 @@ const Header = () => {
                   // Navigate to rooms page for booking
                   window.location.href = '/rooms';
                 } else {
-                  setAuthMode('login');
-                  setIsAuthOpen(true);
-                }
+                  navigate('/login');
               }}
               className="bg-slate-900 text-white px-3 xl:px-4 2xl:px-6 py-2 rounded-lg hover:bg-slate-800 transition-colors text-sm xl:text-base font-medium"
             >
@@ -188,8 +183,7 @@ const Header = () => {
                 <>
                   <button
                     onClick={() => {
-                      setAuthMode('login');
-                      setIsAuthOpen(true);
+                      navigate('/login');
                       setIsMenuOpen(false);
                     }}
                     className="text-slate-700 hover:text-slate-900 transition-colors"
@@ -198,8 +192,7 @@ const Header = () => {
                   </button>
                   <button
                     onClick={() => {
-                      setAuthMode('register');
-                      setIsAuthOpen(true);
+                      navigate('/login');
                       setIsMenuOpen(false);
                     }}
                     className="text-slate-700 hover:text-slate-900 transition-colors"
@@ -235,15 +228,6 @@ const Header = () => {
         )}
 
       </nav>
-      
-      {/* User Authentication Modal */}
-      {isAuthOpen && (
-        <UserAuth 
-          isOpen={isAuthOpen}
-          onClose={() => setIsAuthOpen(false)}
-          initialMode="login"
-        />
-      )}
     </header>
   );
 };

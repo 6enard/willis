@@ -15,10 +15,6 @@ const UserLogin = () => {
   
   const { login, register } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
-
-  // Get the intended destination from state, default to home
-  const from = location.state?.from?.pathname || '/';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,8 +27,8 @@ const UserLogin = () => {
       } else {
         await login(email, password);
       }
-      // Redirect to the intended destination
-      navigate(from, { replace: true });
+      // Redirect to home page after successful login
+      navigate('/', { replace: true });
     } catch (error: any) {
       setError(isSignUp ? 'Failed to create account. Please try again.' : 'Invalid email or password. Please try again.');
       console.error('Auth error:', error);
