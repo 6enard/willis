@@ -12,6 +12,7 @@ import Events from './pages/Events';
 import Contact from './pages/Contact';
 import Gallery from './pages/Gallery';
 import AdminLogin from './components/AdminLogin';
+import UserLogin from './components/UserLogin';
 import AdminDashboard from './components/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './contexts/AuthContext';
@@ -42,6 +43,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/login" element={<UserLogin />} />
             <Route 
               path="/admin/dashboard" 
               element={

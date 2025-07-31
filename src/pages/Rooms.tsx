@@ -87,7 +87,7 @@ const Rooms = () => {
     if (user && userProfile) {
       setBookingRoom(room);
     } else {
-      navigate('/admin/login');
+      navigate('/login', { state: { from: { pathname: '/rooms' } } });
     }
   };
   return (

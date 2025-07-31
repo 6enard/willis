@@ -171,7 +171,7 @@ const RoomBooking: React.FC<RoomBookingProps> = ({ isOpen, onClose, selectedRoom
             <button 
               onClick={() => {
                 onClose();
-                navigate('/admin/login');
+                navigate('/login', { state: { from: { pathname: window.location.pathname } } });
               }}
               className="flex-1 bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-lg transition-colors font-semibold"
             >

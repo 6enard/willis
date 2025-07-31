@@ -47,7 +47,7 @@ const Hero = () => {
       setSelectedRoom(defaultRoom);
       setIsBookingOpen(true);
     } else {
-      navigate('/admin/login');
+      navigate('/login', { state: { from: { pathname: '/' } } });
     }
   };
 
@@ -56,7 +56,7 @@ const Hero = () => {
       setSelectedRoom(defaultRoom);
       setIsBookingOpen(true);
     } else {
-      navigate('/admin/login');
+      navigate('/login', { state: { from: { pathname: '/' } } });
     }
   };
 
