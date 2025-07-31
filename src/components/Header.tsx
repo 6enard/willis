@@ -107,6 +107,7 @@ const Header = () => {
                   window.location.href = '/rooms';
                 } else {
                   navigate('/login');
+                }
               }}
               className="bg-slate-900 text-white px-3 xl:px-4 2xl:px-6 py-2 rounded-lg hover:bg-slate-800 transition-colors text-sm xl:text-base font-medium"
             >
