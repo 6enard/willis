@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { db } from '../config/firebase';
 import { collection, addDoc, getDocs, query, where, Timestamp } from 'firebase/firestore';
@@ -12,6 +13,7 @@ interface RoomBookingProps {
 }
 
 const RoomBooking: React.FC<RoomBookingProps> = ({ isOpen, onClose, selectedRoom }) => {
+  const navigate = useNavigate();
   const { user, userProfile } = useAuth();
   const [formData, setFormData] = useState<BookingFormData>({
     roomId: selectedRoom?.id || '',
@@ -169,7 +171,7 @@ const RoomBooking: React.FC<RoomBookingProps> = ({ isOpen, onClose, selectedRoom
             <button 
               onClick={() => {
                 onClose();
-                // This will be handled by the parent component to show auth modal
+                navigate('/admin/login');
               }}
               className="flex-1 bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-lg transition-colors font-semibold"
             >

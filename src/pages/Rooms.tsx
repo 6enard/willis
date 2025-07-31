@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Wifi, Car, Coffee, Tv, Bath, Users, Star, ArrowLeft, ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import UserAuth from '../components/UserAuth';
 import RoomBooking from '../components/RoomBooking';
 import { Room } from '../types/booking';
 
 const Rooms = () => {
+  const navigate = useNavigate();
   const [selectedRoom, setSelectedRoom] = useState<number | null>(null);
   const [bookingRoom, setBookingRoom] = useState<Room | null>(null);
-  const [isAuthOpen, setIsAuthOpen] = useState(false);
   const { user, userProfile } = useAuth();
 
   const rooms: Room[] = [
@@ -87,7 +87,7 @@ const Rooms = () => {
     if (user && userProfile) {
       setBookingRoom(room);
     } else {
-      setIsAuthOpen(true);
+      navigate('/admin/login');
     }
   };
   return (
@@ -294,13 +294,6 @@ const Rooms = () => {
             </div>
           </div>
         )}
-
-        {/* User Authentication Modal */}
-        <UserAuth 
-          isOpen={isAuthOpen}
-          onClose={() => setIsAuthOpen(false)}
-          initialMode="login"
-        />
 
         {/* Room Booking Modal */}
         <RoomBooking 

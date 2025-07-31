@@ -1,18 +1,18 @@
 import React from 'react';
 import { useState } from 'react';
 import { Calendar, Users } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import UserAuth from './UserAuth';
 import RoomBooking from './RoomBooking';
 import { Room } from '../types/booking';
 
 const Hero = () => {
+  const navigate = useNavigate();
   const [bookingData, setBookingData] = useState({
     checkIn: '',
     checkOut: '',
     guests: 1
   });
-  const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
   const { user, userProfile } = useAuth();
@@ -47,7 +47,7 @@ const Hero = () => {
       setSelectedRoom(defaultRoom);
       setIsBookingOpen(true);
     } else {
-      setIsAuthOpen(true);
+      navigate('/admin/login');
     }
   };
 
@@ -56,7 +56,7 @@ const Hero = () => {
       setSelectedRoom(defaultRoom);
       setIsBookingOpen(true);
     } else {
-      setIsAuthOpen(true);
+      navigate('/admin/login');
     }
   };
 
@@ -166,13 +166,6 @@ const Hero = () => {
           </div>
         </div> 
       </section>
-
-      {/* User Authentication Modal */}
-      <UserAuth 
-        isOpen={isAuthOpen}
-        onClose={() => setIsAuthOpen(false)}
-        initialMode="login"
-      />
 
       {/* Room Booking Modal */}
       <RoomBooking 

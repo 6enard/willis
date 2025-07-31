@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Hero from '../components/Hero';
 import Testimonials from '../components/Testimonials';
-import UserAuth from '../components/UserAuth';
 import RoomBooking from '../components/RoomBooking';
 import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
@@ -10,9 +10,9 @@ import { ArrowRight, Star, Users, Calendar, Wifi, Car, Coffee, Tv, Bath, X, MapP
 import { Room } from '../types/booking';
 
 const Home = () => {
+  const navigate = useNavigate();
   const [selectedRoom, setSelectedRoom] = useState<number | null>(null);
   const [bookingRoom, setBookingRoom] = useState<Room | null>(null);
-  const [isAuthOpen, setIsAuthOpen] = useState(false);
   const { user, userProfile } = useAuth();
 
   const featuredRooms: Room[] = [
@@ -145,7 +145,7 @@ const Home = () => {
     if (user && userProfile) {
       setBookingRoom(room);
     } else {
-      setIsAuthOpen(true);
+      navigate('/admin/login');
     }
   };
 
@@ -323,14 +323,6 @@ const Home = () => {
       </section>
 
       <Testimonials />
-
-      {/* Auth Modal */}
-      {isAuthOpen && (
-        <UserAuth 
-          isOpen={isAuthOpen} 
-          onClose={() => setIsAuthOpen(false)} 
-        />
-      )}
 
       {/* Booking Modal */}
       {bookingRoom && user && userProfile && (
