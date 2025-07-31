@@ -194,7 +194,10 @@ const Rooms = () => {
                     <span>4.8 (124 reviews)</span>
                   </div>
                   <span>Free cancellation</span>
+                  <span>
                     {room.available ? 'Available' : 'Booked'}
+                  </span>
+                </div>
               </div>
             </div>
           ))}
@@ -273,10 +276,19 @@ const Rooms = () => {
                             <div className="grid grid-cols-2 gap-2">
                               {room.amenities.map((amenity, index) => (
                                 <div key={index} className="flex items-center text-gray-600 text-sm">
-                              handleBookRoom(room);
+                                  <span>• {amenity}</span>
+                                </div>
+                              ))}
+                            </div>
                           </div>
 
-                          <button className="w-full bg-amber-500 hover:bg-amber-600 text-white py-3 rounded-lg transition-colors font-semibold">
+                          <button 
+                            onClick={() => {
+                              setSelectedRoom(null);
+                              handleBookRoom(room);
+                            }}
+                            className="w-full bg-amber-500 hover:bg-amber-600 text-white py-3 rounded-lg transition-colors font-semibold"
+                          >
                             Book This Room
                           </button>
                         </div>
