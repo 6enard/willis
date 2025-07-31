@@ -106,12 +106,10 @@ const Header = () => {
             <button 
               onClick={() => {
                 if (user && userProfile) {
-                  // Scroll to booking section or open booking modal
-                  const heroSection = document.getElementById('home');
-                  if (heroSection) {
-                    heroSection.scrollIntoView({ behavior: 'smooth' });
-                  }
+                  // Navigate to rooms page for booking
+                  window.location.href = '/rooms';
                 } else {
+                  setAuthMode('login');
                   setIsAuthOpen(true);
                 }
               }}
@@ -219,14 +217,12 @@ const Header = () => {
               )}
               <button 
                 onClick={() => {
-                  if (!user || !userProfile) {
-                    setIsAuthOpen(true);
+                  if (user && userProfile) {
+                    // Navigate to rooms page for booking
+                    window.location.href = '/rooms';
                   } else {
-                    // Scroll to booking section
-                    const heroSection = document.getElementById('home');
-                    if (heroSection) {
-                      heroSection.scrollIntoView({ behavior: 'smooth' });
-                    }
+                    setAuthMode('login');
+                    setIsAuthOpen(true);
                   }
                   setIsMenuOpen(false);
                 }}

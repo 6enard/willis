@@ -16,7 +16,13 @@ import {
   Plus,
   Mail,
   Phone,
-  CreditCard
+  CreditCard,
+  Download,
+  RefreshCw,
+  AlertCircle,
+  CheckCircle,
+  Clock,
+  XCircle
 } from 'lucide-react';
 import { Booking } from '../types/booking';
 
@@ -29,10 +35,14 @@ const AdminDashboard = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
+  const [bulkAction, setBulkAction] = useState('');
+  const [selectedBookings, setSelectedBookings] = useState<string[]>([]);
 
   // Fetch bookings from Firestore
   const fetchBookings = async () => {
     try {
+      setRefreshing(true);
       const bookingsQuery = query(
         collection(db, 'bookings'),
         orderBy('createdAt', 'desc')
@@ -52,6 +62,7 @@ const AdminDashboard = () => {
       console.error('Error fetching bookings:', error);
     } finally {
       setLoading(false);
+      setRefreshing(false);
     }
   };
 
@@ -132,6 +143,65 @@ const AdminDashboard = () => {
     }
   };
 
+  // Handle bulk actions
+  const handleBulkAction = async () => {
+    if (!bulkAction || selectedBookings.length === 0) return;
+    
+    try {
+      const promises = selectedBookings.map(bookingId => {
+        const bookingRef = doc(db, 'bookings', bookingId);
+        return updateDoc(bookingRef, { 
+          bookingStatus: bulkAction,
+          updatedAt: new Date()
+        });
+      });
+      
+      await Promise.all(promises);
+      await fetchBookings();
+      setSelectedBookings([]);
+      setBulkAction('');
+    } catch (error) {
+      console.error('Error performing bulk action:', error);
+    }
+  };
+
+  // Toggle booking selection
+  const toggleBookingSelection = (bookingId: string) => {
+    setSelectedBookings(prev => 
+      prev.includes(bookingId) 
+        ? prev.filter(id => id !== bookingId)
+        : [...prev, bookingId]
+    );
+  };
+
+  // Export bookings to CSV
+  const exportBookings = () => {
+    const csvContent = [
+      ['Guest Name', 'Email', 'Phone', 'Room', 'Check In', 'Check Out', 'Guests', 'Total Amount', 'Status', 'Payment Status', 'Created Date'].join(','),
+      ...filteredBookings.map(booking => [
+        booking.fullName,
+        booking.userEmail,
+        booking.phone,
+        booking.roomName,
+        booking.checkInDate?.toLocaleDateString(),
+        booking.checkOutDate?.toLocaleDateString(),
+        booking.numberOfGuests,
+        booking.totalAmount,
+        booking.bookingStatus,
+        booking.paymentStatus,
+        booking.createdAt?.toLocaleDateString()
+      ].join(','))
+    ].join('\n');
+    
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `bookings-${new Date().toISOString().split('T')[0]}.csv`;
+    a.click();
+    window.URL.revokeObjectURL(url);
+  };
+
   useEffect(() => {
     fetchBookings();
     fetchUsers();
@@ -177,6 +247,12 @@ const AdminDashboard = () => {
   const totalRevenue = bookings
     .filter(b => b.paymentStatus === 'paid')
     .reduce((sum, booking) => sum + (booking.totalAmount || 0), 0);
+  const todayBookings = bookings.filter(b => {
+    const today = new Date();
+    const bookingDate = b.createdAt;
+    return bookingDate && 
+           bookingDate.toDateString() === today.toDateString();
+  }).length;
 
   // Check if current user is admin
   if (!user || user.email !== '6enard@gmail.com') {
@@ -205,12 +281,33 @@ const AdminDashboard = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-          <p className="text-gray-600">Welcome back, {userProfile?.fullName || user?.email}</p>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
+              <p className="text-gray-600">Welcome back, {userProfile?.fullName || user?.email}</p>
+            </div>
+            <div className="flex items-center space-x-3 mt-4 sm:mt-0">
+              <button
+                onClick={fetchBookings}
+                disabled={refreshing}
+                className="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors disabled:opacity-50"
+              >
+                <RefreshCw className={`w-4 h-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
+                Refresh
+              </button>
+              <button
+                onClick={exportBookings}
+                className="flex items-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
+              >
+                <Download className="w-4 h-4 mr-2" />
+                Export CSV
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center">
               <div className="p-2 bg-blue-100 rounded-lg">
@@ -258,39 +355,84 @@ const AdminDashboard = () => {
               </div>
             </div>
           </div>
+
+          <div className="bg-white rounded-lg shadow p-6">
+            <div className="flex items-center">
+              <div className="p-2 bg-indigo-100 rounded-lg">
+                <Clock className="h-6 w-6 text-indigo-600" />
+              </div>
+              <div className="ml-4">
+                <p className="text-sm font-medium text-gray-600">Today's Bookings</p>
+                <p className="text-2xl font-bold text-gray-900">{todayBookings}</p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Filters and Search */}
         <div className="bg-white rounded-lg shadow mb-6">
           <div className="p-6 border-b border-gray-200">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <h2 className="text-lg font-semibold text-gray-900">Recent Bookings</h2>
-              
-              <div className="flex flex-col sm:flex-row gap-4">
-                {/* Search */}
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <input
-                    type="text"
-                    placeholder="Search bookings..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                </div>
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <h2 className="text-lg font-semibold text-gray-900">Recent Bookings</h2>
+                
+                <div className="flex flex-col sm:flex-row gap-4">
+                  {/* Search */}
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    <input
+                      type="text"
+                      placeholder="Search bookings..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
 
-                {/* Status Filter */}
-                <select
-                  value={statusFilter}
-                  onChange={(e) => setStatusFilter(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                >
-                  <option value="all">All Status</option>
-                  <option value="pending">Pending</option>
-                  <option value="confirmed">Confirmed</option>
-                  <option value="cancelled">Cancelled</option>
-                </select>
+                  {/* Status Filter */}
+                  <select
+                    value={statusFilter}
+                    onChange={(e) => setStatusFilter(e.target.value)}
+                    className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  >
+                    <option value="all">All Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="confirmed">Confirmed</option>
+                    <option value="cancelled">Cancelled</option>
+                  </select>
+                </div>
               </div>
+              
+              {/* Bulk Actions */}
+              {selectedBookings.length > 0 && (
+                <div className="flex items-center gap-4 p-4 bg-blue-50 rounded-lg">
+                  <span className="text-sm text-blue-700">
+                    {selectedBookings.length} booking{selectedBookings.length > 1 ? 's' : ''} selected
+                  </span>
+                  <select
+                    value={bulkAction}
+                    onChange={(e) => setBulkAction(e.target.value)}
+                    className="px-3 py-1 border border-blue-300 rounded text-sm"
+                  >
+                    <option value="">Select action...</option>
+                    <option value="confirmed">Confirm</option>
+                    <option value="cancelled">Cancel</option>
+                  </select>
+                  <button
+                    onClick={handleBulkAction}
+                    disabled={!bulkAction}
+                    className="px-4 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600 disabled:opacity-50"
+                  >
+                    Apply
+                  </button>
+                  <button
+                    onClick={() => setSelectedBookings([])}
+                    className="px-4 py-1 bg-gray-500 text-white rounded text-sm hover:bg-gray-600"
+                  >
+                    Clear
+                  </button>
+                </div>
+              )}
             </div>
           </div>
 
@@ -299,6 +441,20 @@ const AdminDashboard = () => {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
+                  <th className="px-6 py-3 text-left">
+                    <input
+                      type="checkbox"
+                      checked={selectedBookings.length === filteredBookings.length && filteredBookings.length > 0}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setSelectedBookings(filteredBookings.map(b => b.id));
+                        } else {
+                          setSelectedBookings([]);
+                        }
+                      }}
+                      className="rounded"
+                    />
+                  </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Guest Details
                   </th>
@@ -322,6 +478,14 @@ const AdminDashboard = () => {
               <tbody className="bg-white divide-y divide-gray-200">
                 {filteredBookings.map((booking) => (
                   <tr key={booking.id} className="hover:bg-gray-50">
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <input
+                        type="checkbox"
+                        checked={selectedBookings.includes(booking.id)}
+                        onChange={() => toggleBookingSelection(booking.id)}
+                        className="rounded"
+                      />
+                    </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div>
                         <div className="text-sm font-medium text-gray-900">
@@ -358,7 +522,12 @@ const AdminDashboard = () => {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                      <div className="flex items-center">
+                        {booking.bookingStatus === 'confirmed' && <CheckCircle className="w-4 h-4 text-green-500 mr-2" />}
+                        {booking.bookingStatus === 'pending' && <Clock className="w-4 h-4 text-yellow-500 mr-2" />}
+                        {booking.bookingStatus === 'cancelled' && <XCircle className="w-4 h-4 text-red-500 mr-2" />}
+                        {booking.bookingStatus === 'completed' && <CheckCircle className="w-4 h-4 text-blue-500 mr-2" />}
+                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                         booking.bookingStatus === 'confirmed' 
                           ? 'bg-green-100 text-green-800'
                           : booking.bookingStatus === 'cancelled'
@@ -366,12 +535,18 @@ const AdminDashboard = () => {
                           : booking.bookingStatus === 'completed'
                           ? 'bg-blue-100 text-blue-800'
                           : 'bg-yellow-100 text-yellow-800'
-                      }`}>
-                        {booking.bookingStatus}
-                      </span>
+                        }`}>
+                          {booking.bookingStatus}
+                        </span>
+                      </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                      <div className="flex items-center">
+                        {booking.paymentStatus === 'paid' && <CheckCircle className="w-4 h-4 text-green-500 mr-2" />}
+                        {booking.paymentStatus === 'pending' && <Clock className="w-4 h-4 text-yellow-500 mr-2" />}
+                        {booking.paymentStatus === 'failed' && <XCircle className="w-4 h-4 text-red-500 mr-2" />}
+                        {booking.paymentStatus === 'refunded' && <AlertCircle className="w-4 h-4 text-gray-500 mr-2" />}
+                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                         booking.paymentStatus === 'paid' 
                           ? 'bg-green-100 text-green-800'
                           : booking.paymentStatus === 'failed'
@@ -379,9 +554,10 @@ const AdminDashboard = () => {
                           : booking.paymentStatus === 'refunded'
                           ? 'bg-gray-100 text-gray-800'
                           : 'bg-yellow-100 text-yellow-800'
-                      }`}>
-                        {booking.paymentStatus}
-                      </span>
+                        }`}>
+                          {booking.paymentStatus}
+                        </span>
+                      </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <div className="flex space-x-2">
