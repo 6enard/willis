@@ -132,6 +132,7 @@ const Header = () => {
             </button>
           </div>
         </div>
+      </nav>
 
         {/* Mobile Nav Menu - moved outside of nav container */}
         {isMenuOpen && (
