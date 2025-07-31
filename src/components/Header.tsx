@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, Mail, MapPin } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import UserAuth from './UserAuth';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAuthOpen, setIsAuthOpen] = useState(false);
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
   const location = useLocation();
-  const { user, logout } = useAuth();
+  const { user, userProfile, logout } = useAuth();
 
   const isActive = (path: string) => location.pathname === path; 
 
@@ -74,6 +77,10 @@ const Header = () => {
             ))}
             {user ? (
               <div className="flex items-center space-x-4">
+                <span className="text-slate-700 text-sm">
+                  Welcome, {userProfile?.fullName || user.email}
+                </span>
+                {userProfile?.isAdmin && (
                 <Link
                   to="/admin/dashboard"
                   className="text-slate-700 hover:text-slate-900 transition-colors text-sm xl:text-base"
@@ -125,6 +132,10 @@ const Header = () => {
                 { to: '/amenities', label: 'Amenities' },
                 { to: '/dining', label: 'Dining' },
                 { to: '/events', label: 'Events' },
+                    <span className="text-slate-700 font-medium">
+                      Welcome, {userProfile?.fullName || user.email}
+                    </span>
+                    {userProfile?.isAdmin && (
                 { to: '/gallery', label: 'Gallery' },
                 { to: '/contact', label: 'Contact' },
               ].map((item) => (
@@ -132,6 +143,7 @@ const Header = () => {
                   key={item.to}
                   to={item.to}
                   onClick={() => setIsMenuOpen(false)}
+                    )}
                   className={`transition-colors ${
                     isActive(item.to)
                       ? 'text-slate-900 font-semibold'
@@ -143,6 +155,27 @@ const Header = () => {
               ))}
               {user ? (
                 <>
+                  <>
+                    <button
+                      onClick={() => {
+                        setAuthMode('login');
+                        setIsAuthOpen(true);
+                        setIsMenuOpen(false);
+                      }}
+                      className="text-slate-700 hover:text-slate-900 transition-colors"
+                    >
+                      Sign In
+                    </button>
+                    <button
+                      onClick={() => {
+                        setAuthMode('register');
+                        setIsAuthOpen(true);
+                        setIsMenuOpen(false);
+                      }}
+                      className="text-slate-700 hover:text-slate-900 transition-colors"
+                    >
+                      Sign Up
+                    </button>
                   <Link
                     to="/admin/dashboard"
                     onClick={() => setIsMenuOpen(false)}
@@ -150,6 +183,8 @@ const Header = () => {
                   >
                     Dashboard
                   </Link>
+                  </>
+                )}
                   <button
                     onClick={() => {
                       logout();
@@ -163,18 +198,67 @@ const Header = () => {
               ) : (
                 <Link
                   to="/admin/login"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="text-slate-700 hover:text-slate-900 transition-colors"
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={() => {
+                    setAuthMode('login');
+                    setIsAuthOpen(true);
+                  }}
+                  className="text-slate-700 hover:text-slate-900 transition-colors text-sm xl:text-base"
                 >
-                  Admin Login
+                  Sign In
+                </button>
+                <span className="text-slate-400">|</span>
+                <button
+                  onClick={() => {
+                    setAuthMode('register');
+                    setIsAuthOpen(true);
+                  }}
+                  className="text-slate-700 hover:text-slate-900 transition-colors text-sm xl:text-base"
+                >
+                  Sign Up
+                </button>
+                <Link
+                  to="/admin/login"
+                  className="text-slate-700 hover:text-slate-900 transition-colors text-sm xl:text-base ml-4"
+                >
+                  Admin
                 </Link>
-              )}
-              <button className="bg-slate-900 text-white px-6 py-2 rounded-lg hover:bg-slate-800 transition-colors w-full">
-                Book Now
+              </div>
+            )}
+            <button 
+              onClick={() => {
+                if (user) {
+                  // Open booking for logged in users
+                } else {
+                  setAuthMode('login');
+                  setIsAuthOpen(true);
+                }
+              }}
+              <button 
+                onClick={() => {
+                  if (user) {
+                    // Open booking for logged in users
+                  } else {
+                    setAuthMode('login');
+                    setIsAuthOpen(true);
+                  }
+                  setIsMenuOpen(false);
+                }}
+                className="bg-slate-900 text-white px-6 py-2 rounded-lg hover:bg-slate-800 transition-colors w-full"
+              >
+                  Admin Login
               </button>
             </div>
           </div>
         )}
+
+      {/* User Authentication Modal */}
+      <UserAuth 
+        isOpen={isAuthOpen}
+        onClose={() => setIsAuthOpen(false)}
+        initialMode={authMode}
+      />
       </nav>
     </header>
   );

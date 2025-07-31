@@ -1,14 +1,25 @@
 import React, { useState } from 'react';
 import { Wifi, Car, Coffee, Tv, Bath, Users, Star, ArrowLeft, ArrowRight } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
+import UserAuth from '../components/UserAuth';
+import RoomBooking from '../components/RoomBooking';
+import { Room } from '../types/booking';
 
 const Rooms = () => {
   const [selectedRoom, setSelectedRoom] = useState<number | null>(null);
+  const [bookingRoom, setBookingRoom] = useState<Room | null>(null);
+  const [isAuthOpen, setIsAuthOpen] = useState(false);
+  const { user } = useAuth();
 
-  const rooms = [
+  const rooms: Room[] = [
     {
       id: 1,
+      id: 'single-room',
       name: "Single Room",
+      type: "Standard",
       price: "KSh 3,500",
+      price: 3500,
+      capacity: 2,
       originalPrice: "KSh 4,000",
       image: "/willis2.jpg",
       gallery: [
@@ -16,18 +27,24 @@ const Rooms = () => {
         "/willis6.jpg",
         "/willis7.jpg"
       ],
+      images: ["/willis2.jpg", "/willis6.jpg", "/willis7.jpg"],
       size: "32 sqm",
       guests: "2 Guests",
       bed: "Single Bed",
       view: "City View",
       amenities: ["Free WiFi", "Television", "Bathroom", "Air Conditioning", "Work Desk", "Daily Housekeeping"],
       features: [Wifi, Car, Coffee, Tv],
-      description: "Comfortable single room perfect for solo travelers. Features modern amenities with easy access to Maasai Mara and local attractions."
+      description: "Comfortable single room perfect for solo travelers. Features modern amenities with easy access to Maasai Mara and local attractions.",
+      available: true
     },
     {
       id: 2,
+      id: 'deluxe-room',
       name: "Deluxe Room",
+      type: "Deluxe",
       price: "KSh 4,500",
+      price: 4500,
+      capacity: 2,
       originalPrice: "KSh 5,000",
       image: "/willis3.jpg",
       gallery: [
@@ -35,18 +52,24 @@ const Rooms = () => {
         "/willis8.jpg",
         "/willis9.jpg"
       ],
+      images: ["/willis3.jpg", "/willis8.jpg", "/willis9.jpg"],
       size: "45 sqm",
       guests: "2 Guests",
       bed: "Double Bed",
       view: "City View",
       amenities: ["Double Bed", "Free WiFi", "Television", "Bathroom", "Work Desk", "Premium Toiletries"],
       features: [Wifi, Car, Coffee, Tv],
-      description: "Spacious deluxe room with double bed, premium amenities, and comfortable furnishings. Perfect for couples or business travelers."
+      description: "Spacious deluxe room with double bed, premium amenities, and comfortable furnishings. Perfect for couples or business travelers.",
+      available: true
     },
     {
       id: 3,
+      id: 'superior-room',
       name: "Superior Room",
+      type: "Superior",
       price: "KSh 5,500",
+      price: 5500,
+      capacity: 2,
       originalPrice: "KSh 6,000",
       image: "/willis4.jpg",
       gallery: [
@@ -54,16 +77,25 @@ const Rooms = () => {
         "/willis10.jpg",
         "/willis5.jpg"
       ],
+      images: ["/willis4.jpg", "/willis10.jpg", "/willis5.jpg"],
       size: "65 sqm",
       guests: "2 Guests",
       bed: "Double Bed",
       view: "Garden View",
       amenities: ["Double Bed", "Free WiFi", "Television", "Bathroom", "Living Area", "Premium Amenities"],
       features: [Wifi, Car, Coffee, Tv, Bath],
-      description: "Our finest room with superior amenities, spacious layout, and garden views. Perfect for guests seeking extra comfort and luxury."
+      description: "Our finest room with superior amenities, spacious layout, and garden views. Perfect for guests seeking extra comfort and luxury.",
+      available: true
     }
   ];
 
+  const handleBookRoom = (room: Room) => {
+    if (user) {
+      setBookingRoom(room);
+    } else {
+      setIsAuthOpen(true);
+    }
+  };
   return (
     <div className="pt-32 pb-20">
       <div className="max-w-7xl mx-auto px-4">
@@ -133,8 +165,8 @@ const Rooms = () => {
 
                 <div className="flex space-x-3 mb-4">
                   {room.features.map((Icon, index) => (
-                    <div key={index} className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
-                      <Icon className="w-4 h-4 text-gray-600" />
+                      <span className="text-gray-500 line-through text-sm mr-2">KSh {(room.price * 1.15).toLocaleString()}</span>
+                      <span className="font-bold text-amber-600">KSh {room.price.toLocaleString()}/night</span>
                     </div>
                   ))}
                 </div>
@@ -143,12 +175,15 @@ const Rooms = () => {
 
                 <div className="flex space-x-2 mb-4">
                   <button 
-                    onClick={() => setSelectedRoom(room.id)}
+                    onClick={() => setSelectedRoom(typeof room.id === 'string' ? parseInt(room.id.split('-')[0]) : room.id)}
                     className="flex-1 bg-gray-100 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-200 transition-colors font-semibold text-sm"
                   >
                     View Details
                   </button>
-                  <button className="flex-1 bg-amber-500 hover:bg-amber-600 text-white py-2 px-4 rounded-lg transition-colors font-semibold text-sm">
+                  <button 
+                    onClick={() => handleBookRoom(room)}
+                    className="flex-1 bg-amber-500 hover:bg-amber-600 text-white py-2 px-4 rounded-lg transition-colors font-semibold text-sm"
+                  >
                     Book Now
                   </button>
                 </div>
@@ -159,7 +194,7 @@ const Rooms = () => {
                     <span>4.8 (124 reviews)</span>
                   </div>
                   <span>Free cancellation</span>
-                </div>
+                    {room.available ? 'Available' : 'Booked'}
               </div>
             </div>
           ))}
@@ -171,7 +206,7 @@ const Rooms = () => {
             <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
               <div className="p-6">
                 {(() => {
-                  const room = rooms.find(r => r.id === selectedRoom);
+                  const room = rooms.find(r => (typeof r.id === 'string' ? parseInt(r.id.split('-')[0]) : r.id) === selectedRoom);
                   if (!room) return null;
                   
                   return (
@@ -180,8 +215,8 @@ const Rooms = () => {
                         <div>
                           <h2 className="text-3xl font-bold text-gray-900 mb-2">{room.name}</h2>
                           <div className="flex items-center">
-                            <span className="text-gray-500 line-through text-lg mr-2">{room.originalPrice}</span>
-                            <span className="text-2xl font-bold text-amber-600">{room.price}/night</span>
+                            <span className="text-gray-500 line-through text-lg mr-2">KSh {(room.price * 1.15).toLocaleString()}</span>
+                            <span className="text-2xl font-bold text-amber-600">KSh {room.price.toLocaleString()}/night</span>
                           </div>
                         </div>
                         <button 
@@ -238,11 +273,7 @@ const Rooms = () => {
                             <div className="grid grid-cols-2 gap-2">
                               {room.amenities.map((amenity, index) => (
                                 <div key={index} className="flex items-center text-gray-600 text-sm">
-                                  <div className="w-2 h-2 bg-amber-500 rounded-full mr-3"></div>
-                                  {amenity}
-                                </div>
-                              ))}
-                            </div>
+                              handleBookRoom(room);
                           </div>
 
                           <button className="w-full bg-amber-500 hover:bg-amber-600 text-white py-3 rounded-lg transition-colors font-semibold">
@@ -258,6 +289,19 @@ const Rooms = () => {
           </div>
         )}
 
+        {/* User Authentication Modal */}
+        <UserAuth 
+          isOpen={isAuthOpen}
+          onClose={() => setIsAuthOpen(false)}
+          initialMode="login"
+        />
+
+        {/* Room Booking Modal */}
+        <RoomBooking 
+          isOpen={!!bookingRoom}
+          onClose={() => setBookingRoom(null)}
+          selectedRoom={bookingRoom}
+        />
         {/* Special Offers */}
         <div className="mt-20 bg-gradient-to-r from-amber-50 to-orange-50 rounded-3xl p-8 md:p-12">
           <div className="text-center mb-8">

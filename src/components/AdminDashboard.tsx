@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { db } from '../config/firebase';
-import { collection, getDocs, doc, updateDoc, deleteDoc, addDoc, query, orderBy } from 'firebase/firestore';
+import { collection, getDocs, doc, updateDoc, deleteDoc, query, orderBy, where } from 'firebase/firestore';
 import { 
   Users, 
   Calendar, 
@@ -13,16 +13,22 @@ import {
   Trash2,
   Filter,
   Search,
-  Plus
+  Plus,
+  Mail,
+  Phone,
+  CreditCard
 } from 'lucide-react';
+import { Booking } from '../types/booking';
 
 const AdminDashboard = () => {
-  const { user } = useAuth();
-  const [bookings, setBookings] = useState([]);
-  const [filteredBookings, setFilteredBookings] = useState([]);
+  const { user, userProfile } = useAuth();
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [filteredBookings, setFilteredBookings] = useState<Booking[]>([]);
+  const [users, setUsers] = useState<any[]>([]);
   const [statusFilter, setStatusFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
+  const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
 
   // Fetch bookings from Firestore
   const fetchBookings = async () => {
@@ -32,12 +38,14 @@ const AdminDashboard = () => {
         orderBy('createdAt', 'desc')
       );
       const querySnapshot = await getDocs(bookingsQuery);
-      const bookingsData = querySnapshot.docs.map(doc => ({
+      const bookingsData: Booking[] = querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data(),
+        checkInDate: doc.data().checkInDate?.toDate(),
+        checkOutDate: doc.data().checkOutDate?.toDate(),
         createdAt: doc.data().createdAt?.toDate(),
-        date: doc.data().date?.toDate()
-      }));
+        updatedAt: doc.data().updatedAt?.toDate()
+      })) as Booking[];
       setBookings(bookingsData);
       setFilteredBookings(bookingsData);
     } catch (error) {
@@ -47,21 +55,39 @@ const AdminDashboard = () => {
     }
   };
 
+  // Fetch users from Firestore
+  const fetchUsers = async () => {
+    try {
+      const usersQuery = query(collection(db, 'users'));
+      const querySnapshot = await getDocs(usersQuery);
+      const usersData = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+        createdAt: doc.data().createdAt?.toDate()
+      }));
+      setUsers(usersData);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  };
   // Update booking status in Firestore
-  const updateBookingStatus = async (bookingId: string, newStatus: 'confirmed' | 'cancelled') => {
+  const updateBookingStatus = async (bookingId: string, newStatus: 'pending' | 'confirmed' | 'cancelled' | 'completed') => {
     try {
       const bookingRef = doc(db, 'bookings', bookingId);
-      await updateDoc(bookingRef, { status: newStatus });
+      await updateDoc(bookingRef, { 
+        bookingStatus: newStatus,
+        updatedAt: new Date()
+      });
       
       // Update local state
       setBookings(bookings.map(booking => 
         booking.id === bookingId 
-          ? { ...booking, status: newStatus }
+          ? { ...booking, bookingStatus: newStatus, updatedAt: new Date() }
           : booking
       ));
       setFilteredBookings(filteredBookings.map(booking => 
         booking.id === bookingId 
-          ? { ...booking, status: newStatus }
+          ? { ...booking, bookingStatus: newStatus, updatedAt: new Date() }
           : booking
       ));
     } catch (error) {
@@ -69,6 +95,30 @@ const AdminDashboard = () => {
     }
   };
 
+  // Update payment status
+  const updatePaymentStatus = async (bookingId: string, newStatus: 'pending' | 'paid' | 'failed' | 'refunded') => {
+    try {
+      const bookingRef = doc(db, 'bookings', bookingId);
+      await updateDoc(bookingRef, { 
+        paymentStatus: newStatus,
+        updatedAt: new Date()
+      });
+      
+      // Update local state
+      setBookings(bookings.map(booking => 
+        booking.id === bookingId 
+          ? { ...booking, paymentStatus: newStatus, updatedAt: new Date() }
+          : booking
+      ));
+      setFilteredBookings(filteredBookings.map(booking => 
+        booking.id === bookingId 
+          ? { ...booking, paymentStatus: newStatus, updatedAt: new Date() }
+          : booking
+      ));
+    } catch (error) {
+      console.error('Error updating payment status:', error);
+    }
+  };
   // Delete booking from Firestore
   const deleteBooking = async (bookingId: string) => {
     try {
@@ -84,6 +134,7 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     fetchBookings();
+    fetchUsers();
   }, []);
 
   useEffect(() => {
@@ -91,25 +142,28 @@ const AdminDashboard = () => {
 
     // Filter by status
     if (statusFilter !== 'all') {
-      filtered = filtered.filter(booking => booking.status === statusFilter);
+      filtered = filtered.filter(booking => booking.bookingStatus === statusFilter);
     }
 
     // Filter by search term
     if (searchTerm) {
       filtered = filtered.filter(booking =>
-        booking.customerName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        booking.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        booking.service?.toLowerCase().includes(searchTerm.toLowerCase())
+        booking.fullName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        booking.userEmail?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        booking.roomName?.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
     setFilteredBookings(filtered);
   }, [bookings, statusFilter, searchTerm]);
 
-  const handleStatusUpdate = async (bookingId: string, newStatus: 'confirmed' | 'cancelled') => {
+  const handleStatusUpdate = async (bookingId: string, newStatus: 'pending' | 'confirmed' | 'cancelled' | 'completed') => {
     await updateBookingStatus(bookingId, newStatus);
   };
 
+  const handlePaymentUpdate = async (bookingId: string, newStatus: 'pending' | 'paid' | 'failed' | 'refunded') => {
+    await updatePaymentStatus(bookingId, newStatus);
+  };
   const handleDeleteBooking = async (bookingId: string) => {
     if (window.confirm('Are you sure you want to delete this booking?')) {
       await deleteBooking(bookingId);
@@ -118,12 +172,23 @@ const AdminDashboard = () => {
 
   // Calculate statistics
   const totalBookings = bookings.length;
-  const confirmedBookings = bookings.filter(b => b.status === 'confirmed').length;
-  const pendingBookings = bookings.filter(b => b.status === 'pending').length;
+  const confirmedBookings = bookings.filter(b => b.bookingStatus === 'confirmed').length;
+  const pendingBookings = bookings.filter(b => b.bookingStatus === 'pending').length;
   const totalRevenue = bookings
-    .filter(b => b.status === 'confirmed')
-    .reduce((sum, booking) => sum + (booking.price || 0), 0);
+    .filter(b => b.paymentStatus === 'paid')
+    .reduce((sum, booking) => sum + (booking.totalAmount || 0), 0);
 
+  // Check if current user is admin
+  if (!userProfile?.isAdmin) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Access Denied</h1>
+          <p className="text-gray-600">You don't have permission to access this page.</p>
+        </div>
+      </div>
+    );
+  }
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -141,7 +206,7 @@ const AdminDashboard = () => {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-          <p className="text-gray-600">Welcome back, {user?.email}</p>
+          <p className="text-gray-600">Welcome back, {userProfile?.fullName || user?.email}</p>
         </div>
 
         {/* Stats Cards */}
@@ -189,7 +254,7 @@ const AdminDashboard = () => {
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Revenue</p>
-                <p className="text-2xl font-bold text-gray-900">${totalRevenue}</p>
+                <p className="text-2xl font-bold text-gray-900">KSh {totalRevenue.toLocaleString()}</p>
               </div>
             </div>
           </div>
@@ -235,19 +300,19 @@ const AdminDashboard = () => {
               <thead className="bg-gray-50">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Customer
+                    Guest Details
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Service
+                    Room & Dates
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Date & Time
+                    Guests & Amount
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
+                    Booking Status
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Price
+                    Payment Status
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
@@ -260,37 +325,74 @@ const AdminDashboard = () => {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div>
                         <div className="text-sm font-medium text-gray-900">
-                          {booking.customerName}
+                          {booking.fullName}
                         </div>
-                        <div className="text-sm text-gray-500">{booking.email}</div>
+                        <div className="text-sm text-gray-500 flex items-center">
+                          <Mail className="w-3 h-3 mr-1" />
+                          {booking.userEmail}
+                        </div>
+                        <div className="text-sm text-gray-500 flex items-center">
+                          <Phone className="w-3 h-3 mr-1" />
+                          {booking.phone}
+                        </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {booking.service}
+                      <div>
+                        <div className="font-medium">{booking.roomName}</div>
+                        <div className="text-gray-500">{booking.roomType}</div>
+                        <div className="text-xs text-gray-400">
+                          {booking.checkInDate?.toLocaleDateString()} - {booking.checkOutDate?.toLocaleDateString()}
+                        </div>
+                      </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       <div>
-                        <div>{booking.date?.toLocaleDateString()}</div>
-                        <div className="text-gray-500">{booking.time}</div>
+                        <div className="flex items-center">
+                          <Users className="w-3 h-3 mr-1" />
+                          {booking.numberOfGuests} Guest{booking.numberOfGuests > 1 ? 's' : ''}
+                        </div>
+                        <div className="font-semibold text-amber-600">
+                          KSh {booking.totalAmount?.toLocaleString()}
+                        </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                        booking.status === 'confirmed' 
+                        booking.bookingStatus === 'confirmed' 
                           ? 'bg-green-100 text-green-800'
-                          : booking.status === 'cancelled'
+                          : booking.bookingStatus === 'cancelled'
                           ? 'bg-red-100 text-red-800'
+                          : booking.bookingStatus === 'completed'
+                          ? 'bg-blue-100 text-blue-800'
                           : 'bg-yellow-100 text-yellow-800'
                       }`}>
-                        {booking.status}
+                        {booking.bookingStatus}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      ${booking.price}
+                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                        booking.paymentStatus === 'paid' 
+                          ? 'bg-green-100 text-green-800'
+                          : booking.paymentStatus === 'failed'
+                          ? 'bg-red-100 text-red-800'
+                          : booking.paymentStatus === 'refunded'
+                          ? 'bg-gray-100 text-gray-800'
+                          : 'bg-yellow-100 text-yellow-800'
+                      }`}>
+                        {booking.paymentStatus}
+                      </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <div className="flex space-x-2">
-                        {booking.status === 'pending' && (
+                        <button
+                          onClick={() => setSelectedBooking(booking)}
+                          className="text-blue-600 hover:text-blue-900"
+                          title="View details"
+                        >
+                          <Eye className="h-4 w-4" />
+                        </button>
+                        {booking.bookingStatus === 'pending' && (
                           <>
                             <button
                               onClick={() => handleStatusUpdate(booking.id, 'confirmed')}
@@ -307,6 +409,15 @@ const AdminDashboard = () => {
                               <X className="h-4 w-4" />
                             </button>
                           </>
+                        )}
+                        {booking.bookingStatus === 'confirmed' && booking.paymentStatus === 'pending' && (
+                          <button
+                            onClick={() => handlePaymentUpdate(booking.id, 'paid')}
+                            className="text-green-600 hover:text-green-900"
+                            title="Mark as paid"
+                          >
+                            <CreditCard className="h-4 w-4" />
+                          </button>
                         )}
                         <button
                           onClick={() => handleDeleteBooking(booking.id)}
@@ -336,6 +447,203 @@ const AdminDashboard = () => {
             </div>
           )}
         </div>
+
+        {/* User Management Section */}
+        <div className="bg-white rounded-lg shadow mb-6">
+          <div className="p-6 border-b border-gray-200">
+            <h2 className="text-lg font-semibold text-gray-900">Registered Users</h2>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    User Details
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Registration Date
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Total Bookings
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Role
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {users.map((user) => {
+                  const userBookings = bookings.filter(b => b.userId === user.id);
+                  return (
+                    <tr key={user.id} className="hover:bg-gray-50">
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div>
+                          <div className="text-sm font-medium text-gray-900">
+                            {user.fullName}
+                          </div>
+                          <div className="text-sm text-gray-500 flex items-center">
+                            <Mail className="w-3 h-3 mr-1" />
+                            {user.email}
+                          </div>
+                          <div className="text-sm text-gray-500 flex items-center">
+                            <Phone className="w-3 h-3 mr-1" />
+                            {user.phone}
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {user.createdAt?.toLocaleDateString()}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {userBookings.length}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                          user.isAdmin 
+                            ? 'bg-purple-100 text-purple-800'
+                            : 'bg-gray-100 text-gray-800'
+                        }`}>
+                          {user.isAdmin ? 'Admin' : 'Guest'}
+                        </span>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Booking Details Modal */}
+        {selectedBooking && (
+          <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+            <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="p-6">
+                <div className="flex justify-between items-center mb-6">
+                  <h2 className="text-2xl font-bold text-gray-900">Booking Details</h2>
+                  <button 
+                    onClick={() => setSelectedBooking(null)}
+                    className="text-gray-400 hover:text-gray-600 text-2xl"
+                  >
+                    ×
+                  </button>
+                </div>
+
+                <div className="space-y-6">
+                  {/* Guest Information */}
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Guest Information</h3>
+                    <div className="bg-gray-50 p-4 rounded-lg space-y-2">
+                      <div><strong>Name:</strong> {selectedBooking.fullName}</div>
+                      <div><strong>Email:</strong> {selectedBooking.userEmail}</div>
+                      <div><strong>Phone:</strong> {selectedBooking.phone}</div>
+                    </div>
+                  </div>
+
+                  {/* Booking Information */}
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Booking Information</h3>
+                    <div className="bg-gray-50 p-4 rounded-lg space-y-2">
+                      <div><strong>Room:</strong> {selectedBooking.roomName} ({selectedBooking.roomType})</div>
+                      <div><strong>Check-in:</strong> {selectedBooking.checkInDate?.toLocaleDateString()}</div>
+                      <div><strong>Check-out:</strong> {selectedBooking.checkOutDate?.toLocaleDateString()}</div>
+                      <div><strong>Guests:</strong> {selectedBooking.numberOfGuests}</div>
+                      <div><strong>Total Amount:</strong> KSh {selectedBooking.totalAmount?.toLocaleString()}</div>
+                      {selectedBooking.specialRequests && (
+                        <div><strong>Special Requests:</strong> {selectedBooking.specialRequests}</div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Status Information */}
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Status</h3>
+                    <div className="bg-gray-50 p-4 rounded-lg space-y-2">
+                      <div>
+                        <strong>Booking Status:</strong> 
+                        <span className={`ml-2 inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                          selectedBooking.bookingStatus === 'confirmed' 
+                            ? 'bg-green-100 text-green-800'
+                            : selectedBooking.bookingStatus === 'cancelled'
+                            ? 'bg-red-100 text-red-800'
+                            : selectedBooking.bookingStatus === 'completed'
+                            ? 'bg-blue-100 text-blue-800'
+                            : 'bg-yellow-100 text-yellow-800'
+                        }`}>
+                          {selectedBooking.bookingStatus}
+                        </span>
+                      </div>
+                      <div>
+                        <strong>Payment Status:</strong> 
+                        <span className={`ml-2 inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                          selectedBooking.paymentStatus === 'paid' 
+                            ? 'bg-green-100 text-green-800'
+                            : selectedBooking.paymentStatus === 'failed'
+                            ? 'bg-red-100 text-red-800'
+                            : selectedBooking.paymentStatus === 'refunded'
+                            ? 'bg-gray-100 text-gray-800'
+                            : 'bg-yellow-100 text-yellow-800'
+                        }`}>
+                          {selectedBooking.paymentStatus}
+                        </span>
+                      </div>
+                      <div><strong>Created:</strong> {selectedBooking.createdAt?.toLocaleString()}</div>
+                      <div><strong>Last Updated:</strong> {selectedBooking.updatedAt?.toLocaleString()}</div>
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex space-x-3">
+                    {selectedBooking.bookingStatus === 'pending' && (
+                      <>
+                        <button
+                          onClick={() => {
+                            handleStatusUpdate(selectedBooking.id, 'confirmed');
+                            setSelectedBooking(null);
+                          }}
+                          className="flex-1 bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg transition-colors font-semibold"
+                        >
+                          Confirm Booking
+                        </button>
+                        <button
+                          onClick={() => {
+                            handleStatusUpdate(selectedBooking.id, 'cancelled');
+                            setSelectedBooking(null);
+                          }}
+                          className="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg transition-colors font-semibold"
+                        >
+                          Cancel Booking
+                        </button>
+                      </>
+                    )}
+                    {selectedBooking.bookingStatus === 'confirmed' && selectedBooking.paymentStatus === 'pending' && (
+                      <button
+                        onClick={() => {
+                          handlePaymentUpdate(selectedBooking.id, 'paid');
+                          setSelectedBooking(null);
+                        }}
+                        className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg transition-colors font-semibold"
+                      >
+                        Mark as Paid
+                      </button>
+                    )}
+                    {selectedBooking.bookingStatus === 'confirmed' && selectedBooking.paymentStatus === 'paid' && (
+                      <button
+                        onClick={() => {
+                          handleStatusUpdate(selectedBooking.id, 'completed');
+                          setSelectedBooking(null);
+                        }}
+                        className="flex-1 bg-purple-500 hover:bg-purple-600 text-white py-2 rounded-lg transition-colors font-semibold"
+                      >
+                        Mark as Completed
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
