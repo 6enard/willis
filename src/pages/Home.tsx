@@ -1,12 +1,14 @@
 import React from 'react';
 import { useState } from 'react';
 import Hero from '../components/Hero';
+import BookingForm from '../components/BookingForm';
 import Testimonials from '../components/Testimonials';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Star, Users, Calendar, Wifi, Car, Coffee, Tv, Bath, X, MapPin, Utensils, Building, PartyPopper, Camera, Wine } from 'lucide-react';
 
 const Home = () => {
   const [selectedRoom, setSelectedRoom] = useState<number | null>(null);
+  const [bookingForm, setBookingForm] = useState({ isOpen: false, roomType: '', roomPrice: 0 });
 
   const featuredRooms = [
     {

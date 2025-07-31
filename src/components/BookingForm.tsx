@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Calendar, Users, Mail, Phone, User, MessageSquare } from 'lucide-react';
-import { useBookings, BookingData } from '../hooks/useBookings';
 
 interface BookingFormProps {
   isOpen: boolean;
@@ -10,7 +9,6 @@ interface BookingFormProps {
 }
 
 const BookingForm: React.FC<BookingFormProps> = ({ isOpen, onClose, roomType = 'Single Room', roomPrice = 3500 }) => {
-  const { createBooking, loading } = useBookings();
   const [formData, setFormData] = useState({
     guestName: '',
     email: '',
@@ -50,37 +48,24 @@ const BookingForm: React.FC<BookingFormProps> = ({ isOpen, onClose, roomType = '
     setSubmitting(true);
 
     try {
-      const bookingData: BookingData = {
-        guestName: formData.guestName,
-        email: formData.email,
-        phone: formData.phone,
-        roomType,
-        checkIn: new Date(formData.checkIn),
-        checkOut: new Date(formData.checkOut),
-        guests: parseInt(formData.guests.toString()),
-        specialRequests: formData.specialRequests,
-        totalAmount: calculateTotal()
-      };
-
-      const bookingId = await createBooking(bookingData);
+      // Simulate booking submission
+      console.log('Booking submitted:', formData);
       
-      if (bookingId) {
-        setSuccess(true);
-        setTimeout(() => {
-          setSuccess(false);
-          onClose();
-          // Reset form
-          setFormData({
-            guestName: '',
-            email: '',
-            phone: '',
-            checkIn: '',
-            checkOut: '',
-            guests: 1,
-            specialRequests: ''
-          });
-        }, 2000);
-      }
+      setSuccess(true);
+      setTimeout(() => {
+        setSuccess(false);
+        onClose();
+        // Reset form
+        setFormData({
+          guestName: '',
+          email: '',
+          phone: '',
+          checkIn: '',
+          checkOut: '',
+          guests: 1,
+          specialRequests: ''
+        });
+      }, 2000);
     } catch (error) {
       console.error('Error submitting booking:', error);
     } finally {
