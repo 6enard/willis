@@ -179,12 +179,12 @@ const AdminDashboard = () => {
     .reduce((sum, booking) => sum + (booking.totalAmount || 0), 0);
 
   // Check if current user is admin
-  if (!user || !userProfile?.isAdmin || user.email !== '6enard@gmail.com') {
+  if (!user || user.email !== '6enard@gmail.com') {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">Access Denied</h1>
-          <p className="text-gray-600">You don't have permission to access this page. Only authorized administrators can view this dashboard.</p>
+          <p className="text-gray-600">You don't have permission to access this page. Only the authorized administrator (6enard@gmail.com) can view this dashboard.</p>
         </div>
       </div>
     );

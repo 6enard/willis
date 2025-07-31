@@ -63,6 +63,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const userDoc = await getDoc(doc(db, 'users', result.user.uid));
       if (userDoc.exists()) {
         setUserProfile(userDoc.data());
+      } else if (email === '6enard@gmail.com') {
+        // Create admin profile if it doesn't exist
+        const adminProfile = {
+          email,
+          fullName: 'Administrator',
+          phone: '',
+          createdAt: new Date(),
+          isAdmin: true
+        };
+        await setDoc(doc(db, 'users', result.user.uid), adminProfile);
+        setUserProfile(adminProfile);
       }
     } catch (error) {
       console.error('Login error:', error);

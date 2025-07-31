@@ -124,7 +124,7 @@ const AdminLogin = () => {
 
           <div className="text-center">
             <p className="text-sm text-gray-600">
-              Admin access: 6enard@gmail.com
+              Use your admin credentials to access the dashboard
             </p>
           </div>
         </form>
