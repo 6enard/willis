@@ -126,7 +126,7 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="lg:hidden bg-white/95 backdrop-blur-sm shadow-xl border-t border-white/20 overflow-y-auto">
+        <div className="lg:hidden bg-white/95 backdrop-blur-sm shadow-xl border-t border-white/20 max-h-screen overflow-y-auto">
           <div className="flex flex-col p-6 space-y-3 font-poppins">
             {[
               { to: '/', label: 'Home' },
