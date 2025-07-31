@@ -124,7 +124,7 @@ const AdminLogin = () => {
 
           <div className="text-center">
             <p className="text-sm text-gray-600">
-              Demo credentials: admin@willis.com / admin123
+              Admin access: 6enard@gmail.com
             </p>
           </div>
         </form>

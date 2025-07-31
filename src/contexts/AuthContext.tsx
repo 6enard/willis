@@ -85,7 +85,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         fullName,
         phone,
         createdAt: new Date(),
-        isAdmin: email === '6enard@gmail.com' // Set admin for specific email
+        isAdmin: email === '6enard@gmail.com' // Only 6enard@gmail.com is admin
       };
 
       await setDoc(doc(db, 'users', result.user.uid), userProfile);

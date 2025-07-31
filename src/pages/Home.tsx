@@ -142,7 +142,7 @@ const Home = () => {
   };
 
   const handleBookRoom = (room: Room) => {
-    if (user) {
+    if (user && userProfile) {
       setBookingRoom(room);
     } else {
       setIsAuthOpen(true);

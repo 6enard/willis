@@ -93,7 +93,10 @@ const RoomBooking: React.FC<RoomBookingProps> = ({ isOpen, onClose, selectedRoom
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!user || !userProfile || !selectedRoom) return;
+    if (!user || !userProfile || !selectedRoom) {
+      setError('Please sign in to complete your booking');
+      return;
+    }
 
     setLoading(true);
     setError('');
@@ -150,6 +153,23 @@ const RoomBooking: React.FC<RoomBookingProps> = ({ isOpen, onClose, selectedRoom
 
   if (!isOpen || !selectedRoom) return null;
 
+  // Redirect to login if user is not authenticated
+  if (!user || !userProfile) {
+    return (
+      <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl p-8 max-w-md w-full text-center">
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">Sign In Required</h3>
+          <p className="text-gray-600 mb-6">Please sign in to your account to make a booking.</p>
+          <button 
+            onClick={onClose}
+            className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-lg transition-colors font-semibold"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    );
+  }
   if (success) {
     return (
       <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
@@ -158,7 +178,7 @@ const RoomBooking: React.FC<RoomBookingProps> = ({ isOpen, onClose, selectedRoom
             <Check className="w-8 h-8 text-green-600" />
           </div>
           <h3 className="text-2xl font-bold text-gray-900 mb-2">Booking Confirmed!</h3>
-          <p className="text-gray-600">Your booking request has been submitted successfully. We'll send you a confirmation email shortly.</p>
+          <p className="text-gray-600">Your booking request has been submitted successfully. Our admin team will review and confirm your booking shortly. You'll receive a confirmation email once processed.</p>
         </div>
       </div>
     );

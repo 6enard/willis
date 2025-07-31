@@ -206,8 +206,9 @@ const Header = () => {
               )}
               <button 
                 onClick={() => {
-                  if (user) {
+                  if (user && userProfile) {
                     // Open booking for logged in users
+                    // You can add booking modal logic here
                   } else {
                     setAuthMode('login');
                     setIsAuthOpen(true);

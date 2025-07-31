@@ -43,7 +43,7 @@ const Hero = () => {
       return;
     }
     
-    if (user) {
+    if (user && userProfile) {
       setSelectedRoom(defaultRoom);
       setIsBookingOpen(true);
     } else {
@@ -52,7 +52,7 @@ const Hero = () => {
   };
 
   const handleBookNow = () => {
-    if (user) {
+    if (user && userProfile) {
       setSelectedRoom(defaultRoom);
       setIsBookingOpen(true);
     } else {

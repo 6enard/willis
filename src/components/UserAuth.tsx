@@ -49,7 +49,15 @@ const UserAuth: React.FC<UserAuthProps> = ({ isOpen, onClose, initialMode = 'log
       }
       onClose();
     } catch (error: any) {
-      setError(error.message || 'An error occurred');
+      if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+        setError('Invalid email or password. Please try again.');
+      } else if (error.code === 'auth/email-already-in-use') {
+        setError('An account with this email already exists.');
+      } else if (error.code === 'auth/weak-password') {
+        setError('Password should be at least 6 characters.');
+      } else {
+        setError(error.message || 'An error occurred');
+      }
     } finally {
       setLoading(false);
     }
