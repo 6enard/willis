@@ -142,6 +142,8 @@ const Header = () => {
                 <Link
                   key={item.to}
                   to={item.to}
+                    )}
+                    )}
                   onClick={() => setIsMenuOpen(false)}
                     )}
                   className={`transition-colors ${
@@ -184,7 +186,6 @@ const Header = () => {
                     Dashboard
                   </Link>
                   </>
-                )}
                   <button
                     onClick={() => {
                       logout();
@@ -198,43 +199,12 @@ const Header = () => {
               ) : (
                 <Link
                   to="/admin/login"
-              <div className="flex items-center space-x-2">
-                <button
-                  onClick={() => {
-                    setAuthMode('login');
-                    setIsAuthOpen(true);
-                  }}
-                  className="text-slate-700 hover:text-slate-900 transition-colors text-sm xl:text-base"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="text-slate-700 hover:text-slate-900 transition-colors"
                 >
-                  Sign In
-                </button>
-                <span className="text-slate-400">|</span>
-                <button
-                  onClick={() => {
-                    setAuthMode('register');
-                    setIsAuthOpen(true);
-                  }}
-                  className="text-slate-700 hover:text-slate-900 transition-colors text-sm xl:text-base"
-                >
-                  Sign Up
-                </button>
-                <Link
-                  to="/admin/login"
-                  className="text-slate-700 hover:text-slate-900 transition-colors text-sm xl:text-base ml-4"
-                >
-                  Admin
+                  Admin Login
                 </Link>
-              </div>
-            )}
-            <button 
-              onClick={() => {
-                if (user) {
-                  // Open booking for logged in users
-                } else {
-                  setAuthMode('login');
-                  setIsAuthOpen(true);
-                }
-              }}
+              )}
               <button 
                 onClick={() => {
                   if (user) {
@@ -247,7 +217,7 @@ const Header = () => {
                 }}
                 className="bg-slate-900 text-white px-6 py-2 rounded-lg hover:bg-slate-800 transition-colors w-full"
               >
-                  Admin Login
+                Book Now
               </button>
             </div>
           </div>
