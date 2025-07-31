@@ -68,8 +68,8 @@ body {
 }
 
 /* Fix for large Android devices */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .lg\:hidden {
+@media (min-width: 768px) and (max-width: 1279px) {
+  .xl\:hidden {
     display: block !important;
   }
   
@@ -83,5 +83,41 @@ body {
   nav {
     max-width: 100%;
     overflow-x: hidden;
+  }
+  
+  /* Ensure mobile menu is properly positioned on tablets */
+  .xl\:hidden .fixed {
+    position: fixed !important;
+  }
+}
+
+/* Specific fixes for tablet landscape and large phones */
+@media (min-width: 768px) and (max-width: 1279px) and (orientation: landscape) {
+  .xl\:hidden {
+    display: block !important;
+  }
+  
+  /* Adjust mobile menu height for landscape tablets */
+  .xl\:hidden .fixed {
+    top: 100px;
+  }
+}
+
+/* Ensure proper spacing for larger mobile devices */
+@media (min-width: 640px) and (max-width: 1279px) {
+  .xl\:hidden .flex.flex-col {
+    padding: 1.5rem;
+  }
+  
+  .xl\:hidden .space-y-3 > * + * {
+    margin-top: 1rem;
+  }
+  
+  /* Increase touch targets for better usability */
+  .xl\:hidden a, .xl\:hidden button {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
   }
 }

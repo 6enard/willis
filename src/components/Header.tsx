@@ -55,7 +55,7 @@ const Header = () => {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center space-x-4 xl:space-x-6 2xl:space-x-8 font-poppins">
+          <div className="hidden xl:flex items-center space-x-4 xl:space-x-6 2xl:space-x-8 font-poppins">
             {[
               { to: '/', label: 'Home' },
               { to: '/rooms', label: 'Rooms' },
@@ -113,7 +113,7 @@ const Header = () => {
           </div>
 
           {/* Mobile menu toggle */}
-          <div className="lg:hidden z-50">
+          <div className="xl:hidden z-50">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="p-2 rounded-md text-slate-800 hover:bg-slate-100 focus:outline-none"
@@ -125,7 +125,7 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden fixed inset-x-0 top-[120px] bottom-0 bg-white shadow-xl z-40 overflow-y-auto">
+          <div className="xl:hidden fixed inset-x-0 top-[120px] bottom-0 bg-white shadow-xl z-40 overflow-y-auto">
             <div className="flex flex-col p-6 space-y-3 font-poppins min-h-full">
               {[
                 { to: '/', label: 'Home' },
