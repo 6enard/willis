@@ -13,11 +13,9 @@ const Rooms = () => {
 
   const rooms: Room[] = [
     {
-      id: 1,
       id: 'single-room',
       name: "Single Room",
       type: "Standard",
-      price: "KSh 3,500",
       price: 3500,
       capacity: 2,
       originalPrice: "KSh 4,000",
@@ -38,11 +36,9 @@ const Rooms = () => {
       available: true
     },
     {
-      id: 2,
       id: 'deluxe-room',
       name: "Deluxe Room",
       type: "Deluxe",
-      price: "KSh 4,500",
       price: 4500,
       capacity: 2,
       originalPrice: "KSh 5,000",
@@ -63,11 +59,9 @@ const Rooms = () => {
       available: true
     },
     {
-      id: 3,
       id: 'superior-room',
       name: "Superior Room",
       type: "Superior",
-      price: "KSh 5,500",
       price: 5500,
       capacity: 2,
       originalPrice: "KSh 6,000",
