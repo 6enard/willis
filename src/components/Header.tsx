@@ -135,8 +135,8 @@ const Header = () => {
 
         {/* Mobile Nav Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden fixed inset-x-0 top-[120px] bottom-0 bg-white shadow-lg z-40 overflow-y-auto">
-            <div className="flex flex-col p-4 space-y-4 font-poppins">
+          <div className="lg:hidden absolute top-full left-0 right-0 bg-white shadow-lg z-40">
+            <div className="flex flex-col p-4 space-y-2 font-poppins">
               {[
                 { to: '/', label: 'Home' },
                 { to: '/rooms', label: 'Rooms' },
@@ -150,22 +150,19 @@ const Header = () => {
                   key={item.to}
                   to={item.to}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`py-3 px-4 rounded-lg transition-colors ${
+                  className={`py-2 px-3 rounded-lg transition-colors ${
                     isActive(item.to)
-                      ? 'text-slate-900 font-semibold bg-slate-100'
-                      : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50' 
+                      ? 'text-slate-900 font-semibold'
+                      : 'text-slate-700 hover:text-slate-900' 
                   }`}
                 >
                   {item.label}
                 </Link>
               ))}
               
-              {/* Divider */}
-              <div className="border-t border-slate-200 my-4"></div>
-              
               {user ? (
                 <>
-                  <div className="py-3 px-4">
+                  <div className="py-2 px-3">
                     <span className="text-slate-700 font-medium">
                       Welcome, {userProfile?.fullName || user.email}
                     </span>
@@ -174,7 +171,7 @@ const Header = () => {
                   <Link
                     to="/admin/dashboard"
                     onClick={() => setIsMenuOpen(false)}
-                    className="py-3 px-4 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-50 transition-colors"
+                    className="py-2 px-3 rounded-lg text-slate-700 hover:text-slate-900 transition-colors"
                   >
                     Dashboard
                   </Link>
@@ -184,7 +181,7 @@ const Header = () => {
                       logout();
                       setIsMenuOpen(false);
                     }}
-                    className="bg-red-600 text-white px-4 py-3 rounded-lg hover:bg-red-700 transition-colors w-full text-left"
+                    className="bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-700 transition-colors"
                   >
                     Logout
                   </button>
@@ -196,14 +193,14 @@ const Header = () => {
                       navigate('/login');
                       setIsMenuOpen(false);
                     }}
-                    className="py-3 px-4 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-50 transition-colors text-left"
+                    className="py-2 px-3 rounded-lg text-slate-700 hover:text-slate-900 transition-colors"
                   >
                     Sign In
                   </button>
                   <Link
                     to="/admin/login"
                     onClick={() => setIsMenuOpen(false)}
-                    className="py-3 px-4 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-50 transition-colors"
+                    className="py-2 px-3 rounded-lg text-slate-700 hover:text-slate-900 transition-colors"
                   >
                     Admin Login
                   </Link>
@@ -213,13 +210,10 @@ const Header = () => {
               {/* Book Now Button */}
               <button 
                 onClick={handleBookNow}
-                className="bg-slate-900 text-white px-4 py-3 rounded-lg hover:bg-slate-800 transition-colors w-full font-medium"
+                className="bg-slate-900 text-white px-3 py-2 rounded-lg hover:bg-slate-800 transition-colors font-medium"
               >
                 Book Now
               </button>
-              
-              {/* Extra padding at bottom for scroll */}
-              <div className="h-8"></div>
             </div>
           </div>
         )}
