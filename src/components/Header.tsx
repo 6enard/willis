@@ -133,8 +133,6 @@ const Header = () => {
           </div>
         </div>
 
-        </div>
-
         {/* Mobile Nav Menu - moved outside of nav container */}
         {isMenuOpen && (
           <div className="lg:hidden fixed top-full left-0 right-0 bg-white shadow-lg z-[60] border-t border-gray-200">
