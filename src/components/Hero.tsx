@@ -15,7 +15,7 @@ const Hero = () => {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
-  const { user } = useAuth();
+  const { user, userProfile } = useAuth();
 
   // Default room for booking when no specific room is selected
   const defaultRoom: Room = {

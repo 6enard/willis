@@ -223,13 +223,14 @@ const Header = () => {
           </div>
         )}
 
+      </nav>
+      
       {/* User Authentication Modal */}
       <UserAuth 
         isOpen={isAuthOpen}
         onClose={() => setIsAuthOpen(false)}
         initialMode={authMode}
       />
-      </nav>
     </header>
   );
 };

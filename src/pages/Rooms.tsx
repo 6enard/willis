@@ -9,7 +9,7 @@ const Rooms = () => {
   const [selectedRoom, setSelectedRoom] = useState<number | null>(null);
   const [bookingRoom, setBookingRoom] = useState<Room | null>(null);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
-  const { user } = useAuth();
+  const { user, userProfile } = useAuth();
 
   const rooms: Room[] = [
     {
