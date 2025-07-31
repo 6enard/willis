@@ -55,7 +55,7 @@ const Header = () => {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden xl:flex items-center space-x-4 xl:space-x-6 2xl:space-x-8 font-poppins">
+          <div className="hidden lg:flex items-center space-x-4 xl:space-x-6 2xl:space-x-8 font-poppins">
             {[
               { to: '/', label: 'Home' },
               { to: '/rooms', label: 'Rooms' },
@@ -113,7 +113,7 @@ const Header = () => {
           </div>
 
           {/* Mobile menu toggle */}
-          <div className="xl:hidden z-50">
+          <div className="lg:hidden z-50">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="p-2 rounded-md text-slate-800 hover:bg-slate-100 focus:outline-none"
@@ -122,97 +122,93 @@ const Header = () => {
             </button>
           </div>
         </div>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="xl:hidden fixed inset-x-0 top-[120px] bottom-0 bg-white shadow-xl z-[60] overflow-y-auto">
-            <div className="flex flex-col p-6 space-y-3 font-poppins min-h-full">
-              {[
-                { to: '/', label: 'Home' },
-                { to: '/rooms', label: 'Rooms' },
-                { to: '/amenities', label: 'Amenities' },
-                { to: '/dining', label: 'Dining' },
-                { to: '/events', label: 'Events' },
-                { to: '/gallery', label: 'Gallery' },
-                { to: '/contact', label: 'Contact' },
-              ].map((item) => (
-                <Link
-                  key={item.to}
-                  to={item.to}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={`py-3 px-4 rounded-lg transition-colors text-base ${
-                    isActive(item.to)
-                      ? 'text-slate-900 font-semibold bg-amber-50 border-l-4 border-amber-500'
-                      : 'text-slate-700 hover:text-slate-900 hover:bg-gray-50'
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              ))}
-
-              {user ? (
-                <>
-                  <div className="py-4 px-4 border-t border-gray-200 mt-4 pt-6">
-                    <span className="text-slate-700 font-medium text-base">
-                      Welcome, {userProfile?.fullName?.split(' ')[0] || user.email}
-                    </span>
-                  </div>
-                  {userProfile?.isAdmin && (
-                    <Link
-                      to="/admin/dashboard"
-                      onClick={() => setIsMenuOpen(false)}
-                      className="py-3 px-4 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-gray-50 text-base"
-                    >
-                      Admin Dashboard
-                    </Link>
-                  )}
-                  <button
-                    onClick={() => {
-                      logout();
-                      setIsMenuOpen(false);
-                    }}
-                    className="bg-red-600 text-white px-4 py-3 rounded-lg hover:bg-red-700 font-medium transition-colors"
-                  >
-                    Logout
-                  </button>
-                </>
-              ) : (
-                <>
-                  <button
-                    onClick={() => {
-                      navigate('/login');
-                      setIsMenuOpen(false);
-                    }}
-                    className="py-3 px-4 text-slate-700 hover:text-slate-900 hover:bg-gray-50 rounded-lg text-base transition-colors"
-                  >
-                    Sign In
-                  </button>
-                  <Link
-                    to="/admin/login"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="py-3 px-4 text-slate-700 hover:text-slate-900 hover:bg-gray-50 rounded-lg text-base transition-colors"
-                  >
-                    Admin Login
-                  </Link>
-                </>
-              )}
-
-              <button
-                onClick={handleBookNow}
-                className="bg-slate-900 text-white px-4 py-3 rounded-lg hover:bg-slate-800 font-medium mt-4 transition-colors"
-              >
-                Book Now
-              </button>
-              
-              {/* Bottom spacing for better scrolling */}
-              <div className="pb-8"></div>
-            </div>
-            
-            {/* Close overlay when clicking outside */}
-            <div className="fixed inset-0 bg-black/20 -z-10" onClick={() => setIsMenuOpen(false)}></div>
-          </div>
-        )}
       </nav>
+
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="lg:hidden bg-white/95 backdrop-blur-sm shadow-xl border-t border-white/20 overflow-y-auto">
+          <div className="flex flex-col p-6 space-y-3 font-poppins">
+            {[
+              { to: '/', label: 'Home' },
+              { to: '/rooms', label: 'Rooms' },
+              { to: '/amenities', label: 'Amenities' },
+              { to: '/dining', label: 'Dining' },
+              { to: '/events', label: 'Events' },
+              { to: '/gallery', label: 'Gallery' },
+              { to: '/contact', label: 'Contact' },
+            ].map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                onClick={() => setIsMenuOpen(false)}
+                className={`py-3 px-4 rounded-lg transition-colors text-base ${
+                  isActive(item.to)
+                    ? 'text-slate-900 font-semibold bg-amber-50 border-l-4 border-amber-500'
+                    : 'text-slate-700 hover:text-slate-900 hover:bg-gray-50'
+                }`}
+              >
+                {item.label}
+              </Link>
+            ))}
+
+            {user ? (
+              <>
+                <div className="py-4 px-4 border-t border-gray-200 mt-4 pt-6">
+                  <span className="text-slate-700 font-medium text-base">
+                    Welcome, {userProfile?.fullName?.split(' ')[0] || user.email}
+                  </span>
+                </div>
+                {userProfile?.isAdmin && (
+                  <Link
+                    to="/admin/dashboard"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="py-3 px-4 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-gray-50 text-base"
+                  >
+                    Admin Dashboard
+                  </Link>
+                )}
+                <button
+                  onClick={() => {
+                    logout();
+                    setIsMenuOpen(false);
+                  }}
+                  className="bg-red-600 text-white px-4 py-3 rounded-lg hover:bg-red-700 font-medium transition-colors"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={() => {
+                    navigate('/login');
+                    setIsMenuOpen(false);
+                  }}
+                  className="py-3 px-4 text-slate-700 hover:text-slate-900 hover:bg-gray-50 rounded-lg text-base transition-colors"
+                >
+                  Sign In
+                </button>
+                <Link
+                  to="/admin/login"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="py-3 px-4 text-slate-700 hover:text-slate-900 hover:bg-gray-50 rounded-lg text-base transition-colors"
+                >
+                  Admin Login
+                </Link>
+              </>
+            )}
+
+            <button
+              onClick={handleBookNow}
+              className="bg-slate-900 text-white px-4 py-3 rounded-lg hover:bg-slate-800 font-medium mt-4 transition-colors"
+            >
+              Book Now
+            </button>
+            {/* Bottom spacing for better scrolling */}
+            <div className="pb-8"></div>
+          </div>
+        </div>
+      )}
     </header>
   );
 };
