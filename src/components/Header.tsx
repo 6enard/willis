@@ -125,8 +125,8 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden bg-white shadow-md border-t border-gray-200 mt-2 rounded-lg mx-4">
-            <div className="flex flex-col p-4 space-y-2 font-poppins">
+          <div className="lg:hidden fixed inset-x-0 top-[120px] bottom-0 bg-white shadow-xl z-40 overflow-y-auto">
+            <div className="flex flex-col p-6 space-y-3 font-poppins min-h-full">
               {[
                 { to: '/', label: 'Home' },
                 { to: '/rooms', label: 'Rooms' },
@@ -142,7 +142,7 @@ const Header = () => {
                   onClick={() => setIsMenuOpen(false)}
                   className={`py-3 px-4 rounded-lg transition-colors text-base ${
                     isActive(item.to)
-                      ? 'text-slate-900 font-semibold bg-amber-50'
+                      ? 'text-slate-900 font-semibold bg-amber-50 border-l-4 border-amber-500'
                       : 'text-slate-700 hover:text-slate-900 hover:bg-gray-50'
                   }`}
                 >
@@ -152,9 +152,9 @@ const Header = () => {
 
               {user ? (
                 <>
-                  <div className="py-3 px-4 border-t border-gray-200 mt-2 pt-4">
-                    <span className="text-slate-700 font-medium text-sm">
-                      Welcome, {userProfile?.fullName || user.email}
+                  <div className="py-4 px-4 border-t border-gray-200 mt-4 pt-6">
+                    <span className="text-slate-700 font-medium text-base">
+                      Welcome, {userProfile?.fullName?.split(' ')[0] || user.email}
                     </span>
                   </div>
                   {userProfile?.isAdmin && (
@@ -163,7 +163,7 @@ const Header = () => {
                       onClick={() => setIsMenuOpen(false)}
                       className="py-3 px-4 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-gray-50 text-base"
                     >
-                      Dashboard
+                      Admin Dashboard
                     </Link>
                   )}
                   <button
@@ -171,7 +171,7 @@ const Header = () => {
                       logout();
                       setIsMenuOpen(false);
                     }}
-                    className="bg-red-600 text-white px-4 py-3 rounded-lg hover:bg-red-700 font-medium"
+                    className="bg-red-600 text-white px-4 py-3 rounded-lg hover:bg-red-700 font-medium transition-colors"
                   >
                     Logout
                   </button>
@@ -183,14 +183,14 @@ const Header = () => {
                       navigate('/login');
                       setIsMenuOpen(false);
                     }}
-                    className="py-3 px-4 text-slate-700 hover:text-slate-900 hover:bg-gray-50 rounded-lg text-base"
+                    className="py-3 px-4 text-slate-700 hover:text-slate-900 hover:bg-gray-50 rounded-lg text-base transition-colors"
                   >
                     Sign In
                   </button>
                   <Link
                     to="/admin/login"
                     onClick={() => setIsMenuOpen(false)}
-                    className="py-3 px-4 text-slate-700 hover:text-slate-900 hover:bg-gray-50 rounded-lg text-base"
+                    className="py-3 px-4 text-slate-700 hover:text-slate-900 hover:bg-gray-50 rounded-lg text-base transition-colors"
                   >
                     Admin Login
                   </Link>
@@ -199,11 +199,17 @@ const Header = () => {
 
               <button
                 onClick={handleBookNow}
-                className="bg-slate-900 text-white px-4 py-3 rounded-lg hover:bg-slate-800 font-medium mt-2"
+                className="bg-slate-900 text-white px-4 py-3 rounded-lg hover:bg-slate-800 font-medium mt-4 transition-colors"
               >
                 Book Now
               </button>
+              
+              {/* Bottom spacing for better scrolling */}
+              <div className="pb-8"></div>
             </div>
+            
+            {/* Close overlay when clicking outside */}
+            <div className="absolute inset-0 -z-10" onClick={() => setIsMenuOpen(false)}></div>
           </div>
         )}
       </nav>
