@@ -274,4 +274,145 @@ const Home = () => {
 
       {/* Room Details Modal */}
       {selectedRoom && (
-        <div className="
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl lg:rounded-2xl shadow-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              {(() => {
+                const room = featuredRooms.find(r => (typeof r.id === 'string' ? parseInt(r.id.split('-')[0]) : r.id) === selectedRoom);
+                if (!room) return null;
+                
+                return (
+                  <>
+                    <div className="flex justify-between items-start mb-6">
+                      <div>
+                        <h2 className="font-playfair text-2xl sm:text-3xl font-bold text-gray-900 mb-2">{room.name}</h2>
+                        <div className="flex items-center">
+                          <span className="text-gray-500 line-through text-base sm:text-lg mr-2">KSh {(room.price * 1.15).toLocaleString()}</span>
+                          <span className="text-xl sm:text-2xl font-bold text-amber-600">KSh {room.price.toLocaleString()}/night</span>
+                        </div>
+                      </div>
+                      <button 
+                        onClick={() => setSelectedRoom(null)}
+                        className="text-gray-400 hover:text-gray-600 p-2"
+                      >
+                        ✕
+                      </button>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+                      <div>
+                        <img 
+                          src={room.image} 
+                          alt={room.name}
+                          className="w-full h-48 sm:h-64 object-cover rounded-xl mb-4"
+                        />
+                        <div className="grid grid-cols-3 gap-2">
+                          {room.gallery.slice(0, 3).map((img, index) => (
+                            <img 
+                              key={index}
+                              src={img} 
+                              alt={`${room.name} ${index + 1}`}
+                              className="w-full h-16 sm:h-20 object-cover rounded-lg"
+                            />
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <p className="font-poppins text-gray-600 mb-6 leading-relaxed text-sm sm:text-base">{room.longDescription || room.description}</p>
+                        
+                        <div className="grid grid-cols-2 gap-4 mb-6 text-sm sm:text-base">
+                          <div>
+                            <span className="font-semibold text-gray-900">Size:</span>
+                            <span className="text-gray-600 ml-2">{room.size}</span>
+                          </div>
+                          <div>
+                            <span className="font-semibold text-gray-900">Guests:</span>
+                            <span className="text-gray-600 ml-2">{room.guests}</span>
+                          </div>
+                          <div>
+                            <span className="font-semibold text-gray-900">Bed:</span>
+                            <span className="text-gray-600 ml-2">{room.bed}</span>
+                          </div>
+                          <div>
+                            <span className="font-semibold text-gray-900">View:</span>
+                            <span className="text-gray-600 ml-2">{room.view}</span>
+                          </div>
+                        </div>
+
+                        <div className="mb-6">
+                          <h4 className="font-semibold text-gray-900 mb-3">Amenities</h4>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            {room.amenities.map((amenity, index) => (
+                              <div key={index} className="flex items-center text-gray-600 text-sm">
+                                <span className="w-2 h-2 bg-amber-500 rounded-full mr-2"></span>
+                                {amenity}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <button 
+                          onClick={() => {
+                            setSelectedRoom(null);
+                            handleBookRoom(room);
+                          }}
+                          className="font-poppins w-full bg-amber-500 hover:bg-amber-600 text-white py-3 rounded-lg transition-colors font-semibold"
+                        >
+                          Book This Room
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                );
+              })()}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Services Section */}
+      <section className="py-12 sm:py-16 lg:py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="font-playfair text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Our Services
+            </h2>
+            <p className="font-poppins text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
+              Experience exceptional hospitality with our comprehensive range of services 
+              designed to make your stay unforgettable.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {services.map((service, index) => (
+              <div key={index} className={`bg-gradient-to-br ${getColorClasses(service.color)} p-6 lg:p-8 rounded-xl lg:rounded-2xl hover:shadow-lg transition-shadow duration-300`}>
+                <service.icon className="w-10 h-10 sm:w-12 sm:h-12 mb-4" />
+                <h3 className="font-playfair text-xl sm:text-2xl font-bold text-gray-900 mb-3">{service.title}</h3>
+                <p className="font-poppins text-gray-700 text-sm sm:text-base leading-relaxed">{service.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Testimonials />
+
+      {/* User Authentication Modal */}
+      <UserAuth 
+        isOpen={isAuthOpen}
+        onClose={() => setIsAuthOpen(false)}
+        initialMode="login"
+      />
+
+      {/* Room Booking Modal */}
+      <RoomBooking 
+        isOpen={!!bookingRoom}
+        onClose={() => setBookingRoom(null)}
+        selectedRoom={bookingRoom}
+      />
+    </div>
+  );
+};
+
+export default Home;

@@ -165,8 +165,8 @@ const Rooms = () => {
 
                 <div className="flex space-x-3 mb-4">
                   {room.features.map((Icon, index) => (
-                      <span className="text-gray-500 line-through text-sm mr-2">KSh {(room.price * 1.15).toLocaleString()}</span>
-                      <span className="font-bold text-amber-600">KSh {room.price.toLocaleString()}/night</span>
+                    <div key={index} className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                      <Icon className="w-4 h-4 text-gray-600" />
                     </div>
                   ))}
                 </div>
