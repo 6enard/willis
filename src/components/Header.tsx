@@ -20,20 +20,6 @@ const Header = () => {
     setIsMenuOpen(false);
   };
 
-  // Handle body scroll lock when menu is open
-  React.useEffect(() => {
-    if (isMenuOpen) {
-      document.body.classList.add('menu-open');
-    } else {
-      document.body.classList.remove('menu-open');
-    }
-    
-    // Cleanup on unmount
-    return () => {
-      document.body.classList.remove('menu-open');
-    };
-  }, [isMenuOpen]);
-
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
       {/* Top bar */}
@@ -140,8 +126,8 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="lg:hidden fixed inset-x-0 top-[120px] bottom-0 bg-white/95 backdrop-blur-sm shadow-xl border-t border-white/20 z-40 overflow-y-auto mobile-menu-container">
-          <div className="flex flex-col p-6 space-y-4 font-poppins min-h-full pb-safe">
+        <div className="lg:hidden bg-white/95 backdrop-blur-sm shadow-xl border-t border-white/20 max-h-screen overflow-y-auto">
+          <div className="flex flex-col p-6 space-y-3 font-poppins">
             {[
               { to: '/', label: 'Home' },
               { to: '/rooms', label: 'Rooms' },
@@ -155,7 +141,7 @@ const Header = () => {
                 key={item.to}
                 to={item.to}
                 onClick={() => setIsMenuOpen(false)}
-                className={`py-3 px-4 rounded-lg transition-colors text-base mobile-menu-item ${
+                className={`py-3 px-4 rounded-lg transition-colors text-base ${
                   isActive(item.to)
                     ? 'text-slate-900 font-semibold bg-amber-50 border-l-4 border-amber-500'
                     : 'text-slate-700 hover:text-slate-900 hover:bg-gray-50'
@@ -167,7 +153,7 @@ const Header = () => {
 
             {user ? (
               <>
-                <div className="py-4 px-4 border-t border-gray-200 mt-6 pt-6">
+                <div className="py-4 px-4 border-t border-gray-200 mt-4 pt-6">
                   <span className="text-slate-700 font-medium text-base">
                     Welcome, {userProfile?.fullName?.split(' ')[0] || user.email}
                   </span>
@@ -176,7 +162,7 @@ const Header = () => {
                   <Link
                     to="/admin/dashboard"
                     onClick={() => setIsMenuOpen(false)}
-                    className="py-3 px-4 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-gray-50 text-base mobile-menu-item"
+                    className="py-3 px-4 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-gray-50 text-base"
                   >
                     Admin Dashboard
                   </Link>
@@ -186,7 +172,7 @@ const Header = () => {
                     logout();
                     setIsMenuOpen(false);
                   }}
-                  className="bg-red-600 text-white px-4 py-3 rounded-lg hover:bg-red-700 font-medium transition-colors mobile-menu-item"
+                  className="bg-red-600 text-white px-4 py-3 rounded-lg hover:bg-red-700 font-medium transition-colors"
                 >
                   Logout
                 </button>
@@ -198,14 +184,14 @@ const Header = () => {
                     navigate('/login');
                     setIsMenuOpen(false);
                   }}
-                  className="py-3 px-4 text-slate-700 hover:text-slate-900 hover:bg-gray-50 rounded-lg text-base transition-colors border-t border-gray-200 mt-4 pt-6 mobile-menu-item"
+                  className="py-3 px-4 text-slate-700 hover:text-slate-900 hover:bg-gray-50 rounded-lg text-base transition-colors"
                 >
                   Sign In
                 </button>
                 <Link
                   to="/admin/login"
                   onClick={() => setIsMenuOpen(false)}
-                  className="py-3 px-4 text-slate-700 hover:text-slate-900 hover:bg-gray-50 rounded-lg text-base transition-colors mobile-menu-item"
+                  className="py-3 px-4 text-slate-700 hover:text-slate-900 hover:bg-gray-50 rounded-lg text-base transition-colors"
                 >
                   Admin Login
                 </Link>
@@ -214,13 +200,12 @@ const Header = () => {
 
             <button
               onClick={handleBookNow}
-              className="bg-slate-900 text-white px-4 py-3 rounded-lg hover:bg-slate-800 font-medium mt-4 transition-colors mobile-menu-item"
+              className="bg-slate-900 text-white px-4 py-3 rounded-lg hover:bg-slate-800 font-medium mt-4 transition-colors"
             >
               Book Now
             </button>
-            
-            {/* Bottom spacing for better scrolling and safe area */}
-            <div className="pb-20 pt-4"></div>
+            {/* Bottom spacing for better scrolling */}
+            <div className="pb-8"></div>
           </div>
         </div>
       )}
