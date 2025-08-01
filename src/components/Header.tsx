@@ -126,7 +126,7 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="lg:hidden bg-white/95 backdrop-blur-sm shadow-xl border-t border-white/20 fixed left-0 right-0 top-full bottom-0 overflow-y-auto z-40">
+        <div className="lg:hidden bg-white/95 backdrop-blur-sm shadow-xl border-t border-white/20 max-h-screen overflow-y-auto">
           <div className="flex flex-col p-6 space-y-3 font-poppins">
             {[
               { to: '/', label: 'Home' },
@@ -205,7 +205,7 @@ const Header = () => {
               Book Now
             </button>
             {/* Bottom spacing for better scrolling */}
-            <div className="pb-20"></div>
+            <div className="pb-8"></div>
           </div>
         </div>
       )}
