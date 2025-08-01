@@ -126,11 +126,31 @@ body {
 /* Ensure mobile menu appears above all content */
 @media (max-width: 1279px) {
   .xl\:hidden .fixed {
-    z-index: 60 !important;
+    z-index: 40 !important;
   }
   
   /* Ensure header stays on top */
   header {
     z-index: 50 !important;
+  }
+  
+  /* Prevent body scroll when mobile menu is open */
+  body.menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+  }
+  
+  /* Improve mobile menu scrolling */
+  .mobile-menu-container {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+  
+  /* Better touch targets for mobile */
+  .mobile-menu-item {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
   }
 }
